@@ -1,7 +1,7 @@
-# Dungeons & Dragons Kampanjaloki
+# Kampanjaloki
 
 ## Kuvaus
-Dungeons & Dragons kampanjalokia käytetään sessioiden kirjaamiseen. Lokista löytyvät kampanjan tiedot ja siihen kuuluvat pelaajat. Lokiin pystyy luomaan helposti yhteenvetoja sessioista, tarkistaa tapahtumat ja saadut tavarat. 
+Kampanjalokia käytetään pöytäroolipelien sessioiden kirjaamiseen. Lokista löytyvät kampanjan tiedot ja siihen kuuluvat pelaajat. Lokiin pystyy luomaan yhteenvetoja kampanjan sessioista, tarkistaa tapahtumat ja saadut tavarat. 
 
 ### Ominaisuudet:
 - kirjautuminen joko pelinjohtajana tai pelaajana
@@ -33,6 +33,8 @@ sessions
 characters
 - id (PK)
 - name (TEXT)
+- description (TEXT)
+- image_url (TEXT, nullable)
 - link
 
 character in campaing

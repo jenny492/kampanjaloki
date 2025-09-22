@@ -1,13 +1,13 @@
-package backend.dndlog;
+package com.github.jenny492.kampanjaloki;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DndlogApplication {
+public class KampanjalokiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DndlogApplication.class, args);
+		SpringApplication.run(KampanjalokiApplication.class, args);
 	}
 
 }

@@ -8,10 +8,10 @@
 		<version>3.5.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>backend</groupId>
-	<artifactId>dndlog</artifactId>
+	<groupId>com.github.jenny492</groupId>
+	<artifactId>kampanjaloki</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>dndlog</name>
+	<name>kampanjaloki</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
