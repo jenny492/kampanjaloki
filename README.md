@@ -14,14 +14,14 @@ Kampanjalokia käytetään pöytäroolipelien sessioiden kirjaamiseen. Lokista l
 
 ## Tietomalli
 
-campaigns
+`campaigns`
 - id (PK)
 - name (TEXT, UNIQUE)
 - description (TEXT, nullable)
 - image_url (TEXT, nullable)
 - created_at (INTEGER/ISO)
 
-sessions
+`sessions`
 - id (PK)
 - campaign_id (FK → campaigns.id)
 - title (TEXT)
@@ -30,14 +30,14 @@ sessions
 - created_at (INTEGER/ISO)
 - updated_at (INTEGER/ISO)
 
-characters
+`characters`
 - id (PK)
 - name (TEXT)
 - description (TEXT)
 - image_url (TEXT, nullable)
-- link
+- link (TEXT)
 
-character in campaing
+`character in campaign`
 - id (PK)
 - character_id (FK)
 - campaing_id (FK)
@@ -50,3 +50,17 @@ items
 
 locations
 - id, campaign_id, name, summary, details_md, image_url, tags (TEXT)
+
+### Taulujen kuvaukset
+
+#### Campaigns
+Sisältää kaikki kampanjat. Kampanjalla on nimi ja sillä voi olla kuvaus ja kuva. Kampanja luodaan tiettynä hetkenä ja tallennushetki tallennetaan. 
+
+#### Sessions
+Kampanjaan kuuluu sessioita ja niitä voi olla useita. Sessiolla on otsikko, päivämäärä ja sisältö. Lisäksi tallennetaan tallennusajankohta sekä mahdollinen päivitysaika. 
+
+#### Characters
+Hahmolla on nimi ja sillä voi olla kuvaus ja kuva. Hahmolla on myös linkki sen tarkempiin tietoihin toisella sivustolla. 
+
+#### Characters in campaign
+Kampanjaan voi kuulua hahmoja. Hahmo voi kuulua useampaan eri kampanjaan, joten se liitetään kampanjaan välitaulun avulla.
