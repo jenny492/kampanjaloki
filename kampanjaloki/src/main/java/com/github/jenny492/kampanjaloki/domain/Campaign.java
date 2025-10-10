@@ -17,15 +17,17 @@ public class Campaign {
     private String description;
     private String image_url;
     private LocalDateTime created_at;
+    private AppUser owner_user_id;
     
     public Campaign() {
     }
 
-    public Campaign(String name, String description, String image_url, LocalDateTime created_at) {
+    public Campaign(String name, String description, String image_url, LocalDateTime created_at, AppUser owner_user_id) {
         this.name = name;
         this.description = description;
         this.image_url = image_url;
         this.created_at = created_at;
+        this.owner_user_id = owner_user_id;
     }
 
     public Long getCampaignid() {
@@ -68,6 +70,18 @@ public class Campaign {
         this.created_at = created_at;
     }
 
-    
+    public AppUser getOwner_user_id() {
+        return owner_user_id;
+    }
 
+    public void setOwner_user_id(AppUser owner_user_id) {
+        this.owner_user_id = owner_user_id;
+    }
+    
+    @Override
+    public String toString() {
+        return "Campaign [campaignid=" + campaignid + ", name=" + name + ", description=" + description + ", image_url="
+                + image_url + ", created_at=" + created_at + "]";
+    }
+  
 }

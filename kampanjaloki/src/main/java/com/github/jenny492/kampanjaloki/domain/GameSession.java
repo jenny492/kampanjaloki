@@ -8,33 +8,43 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Session {
+public class GameSession {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long sessionid;
+    private Long id;
+    private Campaign campaign;
     private String title;
-    private String content;;
+    private String content;
     private LocalDateTime session_date;
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
 
-    public Session () {
+    public GameSession () {
 
     }
 
-    public Session(String title, String content, LocalDateTime session_date) {
+    public GameSession(Campaign campaign, String title, String content, LocalDateTime session_date) {
+        this.campaign = campaign;
         this.title = title;
         this.content = content;
         this.session_date = session_date;
     }
 
-    public Long getSessionid() {
-        return sessionid;
+    public Long getId() {
+        return id;
     }
 
-    public void setSessionid(Long sessionid) {
-        this.sessionid = sessionid;
+    public void setId(Long id) {
+        this.id = id;
+    }
+  
+    public Campaign getCampaign() {
+        return campaign;
+    }
+
+    public void setCampaign(Campaign campaign) {
+        this.campaign = campaign;
     }
 
     public String getTitle() {
@@ -77,5 +87,10 @@ public class Session {
         this.updated_at = updated_at;
     }
 
+    @Override
+    public String toString() {
+        return "Session [id=" + id + ", title=" + title + ", content=" + content + ", session_date=" + session_date
+                + ", created_at=" + created_at + ", updated_at=" + updated_at + "]";
+    }
 
 }

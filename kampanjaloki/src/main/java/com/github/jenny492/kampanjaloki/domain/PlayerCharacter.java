@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Character {
+public class PlayerCharacter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,11 +16,11 @@ public class Character {
     private String image_url;
     private String link;
 
-    public Character () {
+    public PlayerCharacter () {
 
     }
 
-    public Character(String name, String description, String image_url, String link) {
+    public PlayerCharacter(String name, String description, String image_url, String link) {
         this.name = name;
         this.description = description;
         this.image_url = image_url;
@@ -67,6 +67,10 @@ public class Character {
         this.link = link;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Character [characterid=" + characterid + ", name=" + name + ", description=" + description
+                + ", image_url=" + image_url + ", link=" + link + "]";
+    }
 
 }
