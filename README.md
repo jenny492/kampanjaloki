@@ -30,6 +30,7 @@ Kampanjalokia käytetään pöytäroolipelien sessioiden kirjaamiseen. Lokista l
 - role (TEXT NOT NULL)
 
 `campaign_members`
+- campaign_member_id (PK)
 - user_id (FK -> users.user_id)
 - campaign_id (FK -> campaigns.campaign_id)
 - role 
@@ -40,9 +41,10 @@ Kampanjalokia käytetään pöytäroolipelien sessioiden kirjaamiseen. Lokista l
 - description (TEXT, nullable)
 - image_url (TEXT, nullable)
 - created_at (INTEGER/ISO)
-- owner_user_id (FK -> users.user_id)
+- owner (FK -> users.user_id)
 
 `campaign_characters`
+- campaign_character_id (PK)
 - character_id (FK -> characters.character_id)
 - campaign_id (FK -> campaigns.campaign_id)
 

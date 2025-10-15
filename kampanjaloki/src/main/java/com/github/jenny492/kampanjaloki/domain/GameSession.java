@@ -1,24 +1,37 @@
 package com.github.jenny492.kampanjaloki.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class GameSession {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
     private Campaign campaign;
+
     private String title;
     private String content;
     private LocalDateTime session_date;
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "session")
+    @JsonIgnore
+    private List<GameEvent> events;
 
     public GameSession () {
 
@@ -87,10 +100,17 @@ public class GameSession {
         this.updated_at = updated_at;
     }
 
+    public List<GameEvent> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<GameEvent> events) {
+        this.events = events;
+    }
+
     @Override
     public String toString() {
         return "Session [id=" + id + ", title=" + title + ", content=" + content + ", session_date=" + session_date
                 + ", created_at=" + created_at + ", updated_at=" + updated_at + "]";
     }
-
 }

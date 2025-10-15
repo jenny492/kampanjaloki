@@ -1,27 +1,34 @@
 package com.github.jenny492.kampanjaloki.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "app_users")
+//@Table(name = "app_users")
 public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false, updatable = false)
+    //@Column(name = "user_id", nullable = false, updatable = false)
     private Long id;
 
-    @Column(name = "username", nullable = false, unique = true)
+    //@Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "password_hash", nullable = false)
+    //@Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
     private LocalDateTime created_at;
 
     private String userrole;
+
+    @OneToMany
+    private List<Campaign> ownedCampaigns;
+
+    @OneToMany
+    private List<CampaignMember> campaignMembers;
 
     public AppUser() {
     }
@@ -73,10 +80,27 @@ public class AppUser {
         this.userrole = userrole;
     }
 
+    public List<Campaign> getOwnedCampaigns() {
+        return ownedCampaigns;
+    }
+
+    public void setOwnedCampaigns(List<Campaign> ownedCampaigns) {
+        this.ownedCampaigns = ownedCampaigns;
+    }
+
+    public List<CampaignMember> getCampaignMembers() {
+        return campaignMembers;
+    }
+
+    public void setCampaignMembers(List<CampaignMember> campaignMembers) {
+        this.campaignMembers = campaignMembers;
+    }
+
     @Override
     public String toString() {
         return "AppUser [id=" + id + ", username=" + username + ", passwordHash=" + passwordHash + ", created_at="
-                + created_at + ", userrole=" + userrole + "]";
+                + created_at + ", userrole=" + userrole + ", ownedCampaigns="
+                + ownedCampaigns + ", campaignMembers=" + campaignMembers + "]";
     }
 
 

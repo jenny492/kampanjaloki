@@ -8,57 +8,60 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class CampaignCharacter {
+public class CampaignMember {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    private PlayerCharacter character;
+    @JoinColumn
+    private AppUser user;
     
     @ManyToOne
     @JoinColumn
     private Campaign campaign;
-
-    public CampaignCharacter() {
+    
+    private String role;
+    
+    public CampaignMember() {
     }
-
-    public CampaignCharacter(PlayerCharacter character, Campaign campaign) {
-        this.character = character;
+    
+    public CampaignMember(AppUser user, Campaign campaign, String role) {
+        this.user = user;
         this.campaign = campaign;
+        this.role = role;
     }
-
-    public PlayerCharacter getCharacter() {
-        return character;
+    
+    public AppUser getUser_id() {
+        return user;
     }
-
-    public void setCharacter(PlayerCharacter character_id) {
-        this.character = character_id;
+    
+    public void setUser(AppUser user) {
+        this.user = user;
     }
-
+    
     public Campaign getCampaign() {
         return campaign;
     }
-
+    
     public void setCampaign(Campaign campaign) {
         this.campaign = campaign;
     }
-
+    
+    public String getRole() {
+        return role;
+    }
+    
+    public void setRole(String role) {
+        this.role = role;
+    }
+    
     @Override
     public String toString() {
-        return "CampaignCharacter [character=" + character + ", campaign=" + campaign + "]";
+        return "CampaignMembers [user=" + user + ", campaign=" + campaign + ", role=" + role + "]";
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
 
     
+
 }

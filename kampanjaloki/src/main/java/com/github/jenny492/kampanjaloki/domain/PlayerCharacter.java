@@ -1,23 +1,29 @@
 package com.github.jenny492.kampanjaloki.domain;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class PlayerCharacter {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long characterid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
     private String name;
     private String description;
     private String image_url;
     private String link;
 
-    public PlayerCharacter () {
+    @OneToMany
+    private List<CampaignCharacter> campaignCharacters;
 
+    public PlayerCharacter () {
     }
 
     public PlayerCharacter(String name, String description, String image_url, String link) {
@@ -28,11 +34,11 @@ public class PlayerCharacter {
     }
 
     public Long getCharacterid() {
-        return characterid;
+        return id;
     }
 
     public void setCharacterid(Long characterid) {
-        this.characterid = characterid;
+        this.id = characterid;
     }
 
     public String getName() {
@@ -69,7 +75,7 @@ public class PlayerCharacter {
 
     @Override
     public String toString() {
-        return "Character [characterid=" + characterid + ", name=" + name + ", description=" + description
+        return "Character [characterid=" + id + ", name=" + name + ", description=" + description
                 + ", image_url=" + image_url + ", link=" + link + "]";
     }
 

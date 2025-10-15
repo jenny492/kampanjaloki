@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Index</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <h1 th:text="'Kampanjat'">Hello</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>Kampanja</th>
+            <th>Kuvaus</th>
+            <th>Kuva</th>
+            <th>Tehty</th>
+            <th>Omistaja</th>
+        </tr>
+        <tr th:each="campaign : ${campaigns}">
+            <td th:text="${campaign.name}"></td>
+            <td th:text="${campaign.description}"></td>
+            <td th:text="${campaign.image_url}"></td>
+            <td th:text="${campaign.created_at}"></td>
+            <td th:text="${campaign.owner.getId()}"></td>
+        </tr>
+    </table>
+    <h1 th:text="'Käyttäjät'">Hello</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>Kampanja</th>
+            <th>Kuvaus</th>
+            <th>Kuva</th>
+            <th>Tehty</th>
+            <th>Omistaja</th>
+        </tr>
+        <tr th:each="campaign : ${campaigns}">
+            <td th:text="${campaign.name}"></td>
+            <td th:text="${campaign.description}"></td>
+            <td th:text="${campaign.image_url}"></td>
+            <td th:text="${campaign.created_at}"></td>
+            <td th:text="${campaign.owner.getId()}"></td>
+        </tr>
+    </table>
+</body>
+
+</html>

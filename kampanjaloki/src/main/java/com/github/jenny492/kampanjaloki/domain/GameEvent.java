@@ -1,14 +1,21 @@
 package com.github.jenny492.kampanjaloki.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class GameEvent {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+ 
+    @ManyToOne
     private GameSession session;
+    
     private String title;
     private int order_index;
     private String summary;
