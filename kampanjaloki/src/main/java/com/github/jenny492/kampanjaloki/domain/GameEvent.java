@@ -1,5 +1,6 @@
 package com.github.jenny492.kampanjaloki.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,18 +18,18 @@ public class GameEvent {
     private GameSession session;
     
     private String title;
-    private int order_index;
-    private String summary;
+
+    @Column(name = "order_index", insertable = false, updatable = false)
+    private Integer order_index;
+
+    private String content;
     private String details;
 
     public GameEvent() {
     }
 
-    public GameEvent(GameSession session, String title, String summary, String details) {
+    public GameEvent(GameSession session) {
         this.session = session;
-        this.title = title;
-        this.summary = summary;
-        this.details = details;
     }
 
     public Long getId() {
@@ -55,20 +56,20 @@ public class GameEvent {
         this.title = title;
     }
 
-    public int getOrder_index() {
+    public Integer getOrder_index() {
         return order_index;
     }
-
+/* 
     public void setOrder_index(int order_index) {
         this.order_index = order_index;
+    } */
+
+    public String getContent() {
+        return content;
     }
 
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getDetails() {
@@ -81,7 +82,7 @@ public class GameEvent {
 
     @Override
     public String toString() {
-        return "Event [id=" + id + ", title=" + title + ", order_index=" + order_index + ", summary=" + summary
+        return "Event [id=" + id + ", title=" + title + ", content=" + content
                 + ", details=" + details + "]";
     }
 

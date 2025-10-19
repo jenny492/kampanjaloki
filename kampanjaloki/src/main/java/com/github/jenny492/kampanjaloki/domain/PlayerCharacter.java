@@ -26,11 +26,9 @@ public class PlayerCharacter {
     public PlayerCharacter () {
     }
 
-    public PlayerCharacter(String name, String description, String image_url, String link) {
+    public PlayerCharacter(String name, String description) {
         this.name = name;
         this.description = description;
-        this.image_url = image_url;
-        this.link = link;
     }
 
     public Long getCharacterid() {

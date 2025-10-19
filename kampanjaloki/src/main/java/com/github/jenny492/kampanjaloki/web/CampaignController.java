@@ -1,18 +1,15 @@
 package com.github.jenny492.kampanjaloki.web;
 
-import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.github.jenny492.kampanjaloki.domain.AppUser;
-import com.github.jenny492.kampanjaloki.domain.Campaign;
 import com.github.jenny492.kampanjaloki.repository.AppUserRepository;
 import com.github.jenny492.kampanjaloki.repository.CampaignRepository;
+import com.github.jenny492.kampanjaloki.repository.GameEventRepository;
+import com.github.jenny492.kampanjaloki.repository.GameSessionRepository;
+import com.github.jenny492.kampanjaloki.repository.PlayerCharacterRepository;
 
 @Controller
 public class CampaignController {
@@ -21,8 +18,15 @@ public class CampaignController {
     private CampaignRepository cRepository;
     @Autowired
     private AppUserRepository uRepository;
+    @Autowired
+    private GameSessionRepository sRepository;
+    @Autowired
+    private GameEventRepository eRepository;
+    @Autowired
+    private PlayerCharacterRepository charRepository;
 
-    public CampaignController(CampaignRepository cRepository, AppUserRepository uRepository) {
+    public CampaignController(CampaignRepository cRepository, AppUserRepository uRepository,
+    GameSessionRepository sRepository, GameEventRepository eRepository) {
         this.cRepository = cRepository;
         this.uRepository = uRepository;
     }
@@ -30,18 +34,12 @@ public class CampaignController {
     @RequestMapping(value = { "/" })
     public String campaignList(Model model) {
         model.addAttribute("campaigns", cRepository.findAll());
+        model.addAttribute("users", uRepository.findAll());
+        model.addAttribute("sessions", sRepository.findAll());
+        model.addAttribute("events", eRepository.findAll());
+        model.addAttribute("characters", charRepository.findAll());
         return "index";
     }
 
-    @Bean
-    public CommandLineRunner demo(CampaignRepository cRepository, AppUserRepository uRepository) {
-        return (args) -> {
-            LocalDateTime testTimeNow = LocalDateTime.now();
-
-            AppUser testUser = new AppUser("username", "password", testTimeNow, "USER");
-            uRepository.save(testUser);
-            Campaign testCampaign = new Campaign("testi", "desc", "img-url", testTimeNow, testUser);
-            cRepository.save(testCampaign);
-        };
-    }
+    
 }

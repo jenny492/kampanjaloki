@@ -27,18 +27,51 @@
     <h1 th:text="'Käyttäjät'">Hello</h1>
     <table class="table table-striped">
         <tr>
-            <th>Kampanja</th>
-            <th>Kuvaus</th>
-            <th>Kuva</th>
-            <th>Tehty</th>
-            <th>Omistaja</th>
+            <th>Nimi</th>
+            <th>Rooli</th>
         </tr>
-        <tr th:each="campaign : ${campaigns}">
-            <td th:text="${campaign.name}"></td>
-            <td th:text="${campaign.description}"></td>
-            <td th:text="${campaign.image_url}"></td>
-            <td th:text="${campaign.created_at}"></td>
-            <td th:text="${campaign.owner.getId()}"></td>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.userrole}"></td>
+        </tr>
+    </table>
+        <h1 th:text="'Sessiot'">Hello</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>Kampanja</th>
+            <th>Otsikko</th>
+            <th>Sisältö</th>
+            <th>Päivämäärä</th>
+        </tr>
+        <tr th:each="gsession : ${sessions}">
+            <td th:text="${gsession.campaign.getName()}"></td>
+            <td th:text="${gsession.title}"></td>
+            <td th:text="${gsession.content}"></td>
+            <td th:text="${gsession.session_date}"></td>
+        </tr>
+    </table>
+        <h1 th:text="'Tapahtumat'">Hello</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>Sessio</th>
+            <th>Tapahtuman järjestysnumero</th>
+            <th>Sisältö</th>
+        </tr>
+        <tr th:each="event : ${events}">
+            <td th:text="${event.session.title}"></td>
+            <td th:text="${event.order_index}"></td>
+            <td th:text="${event.content}"></td>
+        </tr>
+    </table>
+     <h1 th:text="'Hahmot'">Hello</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>Nimi</th>
+            <th>Kuvaus</th>
+        </tr>
+        <tr th:each="character : ${characters}">
+            <td th:text="${character.name}"></td>
+            <td th:text="${character.description}"></td>
         </tr>
     </table>
 </body>

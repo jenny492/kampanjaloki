@@ -1,9 +1,8 @@
 package com.github.jenny492.kampanjaloki.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -12,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderColumn;
 
 @Entity
 public class GameSession {
@@ -30,8 +30,8 @@ public class GameSession {
     private LocalDateTime updated_at;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "session")
-    @JsonIgnore
-    private List<GameEvent> events;
+    @OrderColumn
+    private List<GameEvent> events = new ArrayList<>();
 
     public GameSession () {
 
@@ -99,6 +99,12 @@ public class GameSession {
     public void setUpdated_at(LocalDateTime updated_at) {
         this.updated_at = updated_at;
     }
+
+    public void addEvent(GameEvent e) {
+        events.add(e);
+    }
+
+    // TODO: Lisää myös removeEvent jos tarvitsee
 
     public List<GameEvent> getEvents() {
         return events;
