@@ -34,13 +34,18 @@ public class KampanjalokiApplication {
         return (args) -> {
             LocalDateTime testTimeNow = LocalDateTime.now();
 
-            AppUser testUser = new AppUser("username", "password", testTimeNow, "USER");
-            uRepository.save(testUser);
+            AppUser testUser1 = new AppUser("user1", "$2a$10$QkkwsO61MqIVTMdf60.AReRHTDCs7pPNz/kOTZMOwfsqh4AjAy2dm", testTimeNow, "USER");
+            AppUser testUser2 = new AppUser("user2", "$2a$10$/iZiuKOq5H4/ZpANveL9KezgXuGo8DqiAzOzzgi.8//bda28gQVgu", testTimeNow, "USER");
+            uRepository.save(testUser1);
+            uRepository.save(testUser2);
 
-            Campaign testCampaign = new Campaign("testi", "desc", "img-url", testTimeNow, testUser);
+            AppUser testAdmin = new AppUser("admin", "$2a$10$qKjgF7ibr/9.hAULqzabm.nd.rY/zPLANE1eCf3XUVHQQCSsNDxEm", testTimeNow, "ADMIN");
+            uRepository.save(testAdmin);
+
+            Campaign testCampaign = new Campaign("testi", "desc", "img-url", testTimeNow, testUser1);
             cRepository.save(testCampaign);
 
-            GameSession testSession1 = new GameSession(testCampaign, "Testisessio eka", "Tässä sessiossa tapahtui",
+            GameSession testSession1 = new GameSession(testCampaign, "Testiseikkailu eka", "Tässä seikkailussa tapahtui",
                     testTimeNow);
             sRepository.save(testSession1);
 
@@ -51,7 +56,7 @@ public class KampanjalokiApplication {
             eRepository.save(testEvent2);
             eRepository.save(testEvent3);
 
-            GameSession testSession2 = new GameSession(testCampaign, "Testisessio toka", "Tässä sessiossa tapahtui",
+            GameSession testSession2 = new GameSession(testCampaign, "Testiseikkailu toka", "Tässä seikkailussa tapahtui",
                     testTimeNow);
             sRepository.save(testSession2);
 
@@ -62,9 +67,9 @@ public class KampanjalokiApplication {
             eRepository.save(testEvent5);
             eRepository.save(testEvent6);
 
-            PlayerCharacter character1 = new PlayerCharacter("Hahmo 1", "Kuvaus");
-            PlayerCharacter character2 = new PlayerCharacter("Hahmo 2", "Kuvaus");
-            PlayerCharacter character3 = new PlayerCharacter("Hahmo 3", "Kuvaus");
+            PlayerCharacter character1 = new PlayerCharacter("Hahmo 1", "Kuvaus", testUser1);
+            PlayerCharacter character2 = new PlayerCharacter("Hahmo 2", "Kuvaus", testUser2);
+            PlayerCharacter character3 = new PlayerCharacter("Hahmo 3", "Kuvaus", testUser2);
             charRepository.save(character1);
             charRepository.save(character2);
             charRepository.save(character3);

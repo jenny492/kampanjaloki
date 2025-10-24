@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -20,15 +21,19 @@ public class PlayerCharacter {
     private String image_url;
     private String link;
 
+    @ManyToOne
+    private AppUser owner;
+
     @OneToMany
     private List<CampaignCharacter> campaignCharacters;
 
     public PlayerCharacter () {
     }
 
-    public PlayerCharacter(String name, String description) {
+    public PlayerCharacter(String name, String description, AppUser owner) {
         this.name = name;
         this.description = description;
+        this.owner = owner;
     }
 
     public Long getCharacterid() {
@@ -69,6 +74,14 @@ public class PlayerCharacter {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public AppUser getOwner() {
+        return owner;
+    }
+
+    public void setOwner(AppUser owner) {
+        this.owner = owner;
     }
 
     @Override

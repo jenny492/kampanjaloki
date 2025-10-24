@@ -6,4 +6,5 @@ import com.github.jenny492.kampanjaloki.domain.PlayerCharacter;
 
 public interface PlayerCharacterRepository extends CrudRepository<PlayerCharacter, Long> {
 
+    
 }

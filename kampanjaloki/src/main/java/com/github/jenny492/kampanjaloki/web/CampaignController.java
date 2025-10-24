@@ -31,6 +31,7 @@ public class CampaignController {
         this.uRepository = uRepository;
     }
 
+    // Transmits the data to thymeleaf page
     @RequestMapping(value = { "/" })
     public String campaignList(Model model) {
         model.addAttribute("campaigns", cRepository.findAll());

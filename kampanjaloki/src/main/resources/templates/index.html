@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
     <title>Index</title>
@@ -7,6 +8,32 @@
 </head>
 
 <body>
+    <h1 th:text="'Käyttäjät'">Hello</h1>
+    <!-- Table is shown only to admin-users -->
+    <table sec:authorize="hasAuthority ('ADMIN')" class="table table-striped">
+        <tr>
+            <th>Nimi</th>
+            <th>Rooli</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.userrole}"></td>
+        </tr>
+    </table>
+    <h1 th:text="'Hahmot'">Hello</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>Nimi</th>
+            <th>Kuvaus</th>
+            <th>Omistaja</th>
+        </tr>
+        <tr th:each="character : ${characters}">
+            <td th:text="${character.name}"></td>
+            <td th:text="${character.description}"></td>
+            <td th:text="${character.owner.getUsername()}"></td>
+        </tr>
+    </table>
+
     <h1 th:text="'Kampanjat'">Hello</h1>
     <table class="table table-striped">
         <tr>
@@ -24,18 +51,7 @@
             <td th:text="${campaign.owner.getId()}"></td>
         </tr>
     </table>
-    <h1 th:text="'Käyttäjät'">Hello</h1>
-    <table class="table table-striped">
-        <tr>
-            <th>Nimi</th>
-            <th>Rooli</th>
-        </tr>
-        <tr th:each="user : ${users}">
-            <td th:text="${user.username}"></td>
-            <td th:text="${user.userrole}"></td>
-        </tr>
-    </table>
-        <h1 th:text="'Sessiot'">Hello</h1>
+    <h1 th:text="'Seikkailut'">Hello</h1>
     <table class="table table-striped">
         <tr>
             <th>Kampanja</th>
@@ -50,10 +66,10 @@
             <td th:text="${gsession.session_date}"></td>
         </tr>
     </table>
-        <h1 th:text="'Tapahtumat'">Hello</h1>
+    <h1 th:text="'Tapahtumat'">Hello</h1>
     <table class="table table-striped">
         <tr>
-            <th>Sessio</th>
+            <th>Seikkailu</th>
             <th>Tapahtuman järjestysnumero</th>
             <th>Sisältö</th>
         </tr>
@@ -63,17 +79,12 @@
             <td th:text="${event.content}"></td>
         </tr>
     </table>
-     <h1 th:text="'Hahmot'">Hello</h1>
-    <table class="table table-striped">
-        <tr>
-            <th>Nimi</th>
-            <th>Kuvaus</th>
-        </tr>
-        <tr th:each="character : ${characters}">
-            <td th:text="${character.name}"></td>
-            <td th:text="${character.description}"></td>
-        </tr>
-    </table>
+    <br />
+    <div>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out" />
+        </form>
+    </div>
 </body>
 
 </html>
