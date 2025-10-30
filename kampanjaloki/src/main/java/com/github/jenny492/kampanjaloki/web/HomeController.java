@@ -12,7 +12,7 @@ import com.github.jenny492.kampanjaloki.repository.GameSessionRepository;
 import com.github.jenny492.kampanjaloki.repository.PlayerCharacterRepository;
 
 @Controller
-public class CampaignController {
+public class HomeController {
 
     @Autowired
     private CampaignRepository cRepository;
@@ -25,7 +25,7 @@ public class CampaignController {
     @Autowired
     private PlayerCharacterRepository charRepository;
 
-    public CampaignController(CampaignRepository cRepository, AppUserRepository uRepository,
+    public HomeController(CampaignRepository cRepository, AppUserRepository uRepository,
     GameSessionRepository sRepository, GameEventRepository eRepository) {
         this.cRepository = cRepository;
         this.uRepository = uRepository;
