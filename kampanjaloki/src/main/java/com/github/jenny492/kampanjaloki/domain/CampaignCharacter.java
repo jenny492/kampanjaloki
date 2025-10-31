@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class CampaignCharacter {
@@ -15,10 +16,13 @@ public class CampaignCharacter {
     private Long id;
 
     @ManyToOne
+    @JoinColumn
+    @NotNull
     private PlayerCharacter character;
     
     @ManyToOne
     @JoinColumn
+    @NotNull
     private Campaign campaign;
 
     public CampaignCharacter() {

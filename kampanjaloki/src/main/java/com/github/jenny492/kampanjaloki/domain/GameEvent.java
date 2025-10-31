@@ -1,11 +1,11 @@
 package com.github.jenny492.kampanjaloki.domain;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class GameEvent {
@@ -15,11 +15,12 @@ public class GameEvent {
     private Long id;
  
     @ManyToOne
+    @NotNull
     private GameSession session;
     
     private String title;
 
-    @Column(name = "order_index", insertable = false, updatable = false)
+ //   @NotNull
     private Integer order_index;
 
     private String content;

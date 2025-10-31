@@ -46,7 +46,7 @@ public class KampanjalokiApplication {
             cRepository.save(testCampaign);
 
             GameSession testSession1 = new GameSession(testCampaign, "Testiseikkailu eka", "Tässä seikkailussa tapahtui",
-                    testTimeNow);
+                    testTimeNow, testTimeNow);
             sRepository.save(testSession1);
 
             GameEvent testEvent1 = new GameEvent(testSession1);
@@ -57,7 +57,7 @@ public class KampanjalokiApplication {
             eRepository.save(testEvent3);
 
             GameSession testSession2 = new GameSession(testCampaign, "Testiseikkailu toka", "Tässä seikkailussa tapahtui",
-                    testTimeNow);
+                    testTimeNow, testTimeNow);
             sRepository.save(testSession2);
 
             GameEvent testEvent4 = new GameEvent(testSession2);

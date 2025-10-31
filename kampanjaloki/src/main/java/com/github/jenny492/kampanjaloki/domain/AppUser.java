@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 
 @Entity
 //@Table(name = "app_users")
@@ -14,14 +17,18 @@ public class AppUser {
     //@Column(name = "user_id", nullable = false, updatable = false)
     private Long id;
 
+    @NotBlank(message = "Username is mandatory")
     //@Column(name = "username", nullable = false, unique = true)
     private String username;
 
+    @NotBlank(message = "Password is mandatory")
     //@Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
+    @NotNull(message = "Time created missing")
     private LocalDateTime created_at;
 
+    @NotBlank(message = "User role missing")
     private String userrole;
 
     @OneToMany

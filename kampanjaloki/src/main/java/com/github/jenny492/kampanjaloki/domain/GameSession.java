@@ -1,17 +1,21 @@
 package com.github.jenny492.kampanjaloki.domain;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OrderColumn;
+import jakarta.persistence.OrderBy;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class GameSession {
@@ -21,27 +25,36 @@ public class GameSession {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "campaignid")
+    @NotNull
     private Campaign campaign;
 
+    @NotBlank
     private String title;
     private String content;
+
+    @NotNull
     private LocalDateTime session_date;
+
+    @NotNull
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "session")
-    @OrderColumn
-    private List<GameEvent> events = new ArrayList<>();
+    @OrderBy("orderIndex ASC")
+    @JsonIgnore
+    private List<GameEvent> events;
 
     public GameSession () {
 
     }
 
-    public GameSession(Campaign campaign, String title, String content, LocalDateTime session_date) {
+    public GameSession(Campaign campaign, String title, String content, LocalDateTime session_date, LocalDateTime created_at) {
         this.campaign = campaign;
         this.title = title;
         this.content = content;
         this.session_date = session_date;
+        this.created_at = created_at;
     }
 
     public Long getId() {

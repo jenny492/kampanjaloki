@@ -6,6 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class CampaignMember {
@@ -16,12 +18,15 @@ public class CampaignMember {
 
     @ManyToOne
     @JoinColumn
+    @NotNull
     private AppUser user;
     
     @ManyToOne
     @JoinColumn
+    @NotNull
     private Campaign campaign;
-    
+
+    @NotBlank
     private String role;
     
     public CampaignMember() {

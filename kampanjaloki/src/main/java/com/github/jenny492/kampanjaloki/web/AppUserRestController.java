@@ -2,9 +2,15 @@ package com.github.jenny492.kampanjaloki.web;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.jenny492.kampanjaloki.domain.AppUser;
@@ -17,6 +23,10 @@ public class AppUserRestController {
 
     private AppUserRepository repo;
 
+    public AppUserRestController(AppUserRepository repo) {
+        this.repo = repo;
+    }
+
     @GetMapping
     public List<AppUser> getAllUsers() {
         return (List<AppUser>) repo.findAll();
@@ -26,6 +36,12 @@ public class AppUserRestController {
     public AppUser getUserById(@PathVariable Long id) {
         return repo.findById(id)
                 .orElseThrow(() -> new NotFoundException("User not found"));
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public AppUser createUser(@Valid @RequestBody AppUser user) {
+        return repo.save(user);
     }
 
 }

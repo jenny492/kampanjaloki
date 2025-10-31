@@ -12,20 +12,27 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Campaign {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long campaignid;
 
+    @NotBlank(message = "Campaign name is mandatory")
     private String name;
+    
     private String description;
     private String image_url;
+
+    @NotNull(message = "Campaign create time is mandatory")
     private LocalDateTime created_at;
     
     @ManyToOne
+    @NotNull(message = "Campaign owner required")
     private AppUser owner;
   
     @OneToMany
@@ -89,12 +96,12 @@ public class Campaign {
         this.created_at = created_at;
     }
 
-    public Long getId() {
-        return id;
+    public Long getCampaignid() {
+        return campaignid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCampaignid(Long id) {
+        this.campaignid = id;
     }
 
     public AppUser getOwner() {
@@ -123,7 +130,7 @@ public class Campaign {
 
     @Override
     public String toString() {
-        return "Campaign [id=" + id + ", name=" + name + ", description=" + description + ", image_url=" + image_url
+        return "Campaign [id=" + campaignid + ", name=" + name + ", description=" + description + ", image_url=" + image_url
                 + ", created_at=" + created_at + ", owner=" + owner + ", sessions=" + sessions + ", campaignCharacters="
                 + campaignCharacters + "]";
     }

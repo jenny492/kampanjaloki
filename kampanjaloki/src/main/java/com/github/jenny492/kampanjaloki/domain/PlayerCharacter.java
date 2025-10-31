@@ -8,6 +8,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class PlayerCharacter {
@@ -15,13 +17,16 @@ public class PlayerCharacter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
+    @NotBlank(message = "Character must have a name")
     private String name;
+    
     private String description;
     private String image_url;
     private String link;
 
     @ManyToOne
+    @NotNull
     private AppUser owner;
 
     @OneToMany
