@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -69,6 +70,18 @@ public class CampaignCharacterController {
             throw new NotFoundException("Campaign character not found");
         }
         repo.deleteById(id);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CampaignCharacter updateCampaignCharacter(@PathVariable Long id, @Valid @RequestBody CampaignCharacter updatedCampaignCharacter) {
+        return repo.findById(id)
+                .map(campaignCharacter -> {
+                    campaignCharacter.setCampaignid(updatedCampaignCharacter.getCampaignid());
+                    campaignCharacter.setCharacterid(updatedCampaignCharacter.getCharacterid());;
+                    return repo.save(campaignCharacter);
+                })
+                .orElseThrow(() -> new NotFoundException("Campaign character not found"));
     }
 
 }

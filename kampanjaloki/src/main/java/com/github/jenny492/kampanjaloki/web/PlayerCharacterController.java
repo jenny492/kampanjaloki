@@ -1,5 +1,6 @@
 package com.github.jenny492.kampanjaloki.web;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -7,11 +8,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.jenny492.kampanjaloki.domain.GameSession;
 import com.github.jenny492.kampanjaloki.domain.PlayerCharacter;
 import com.github.jenny492.kampanjaloki.exception.NotFoundException;
 import com.github.jenny492.kampanjaloki.repository.PlayerCharacterRepository;
@@ -51,6 +54,21 @@ public class PlayerCharacterController {
             throw new NotFoundException("Character not found");
         }
         repo.deleteById(id);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public PlayerCharacter updateCharacter(@PathVariable Long id, @Valid @RequestBody PlayerCharacter updatedCharacter) {
+        return repo.findById(id)
+                .map(character -> {
+                    character.setName(updatedCharacter.getName());
+                    character.setDescription(updatedCharacter.getDescription());
+                    character.setImage_url(updatedCharacter.getImage_url());
+                    character.setLink(updatedCharacter.getLink());
+                    character.setOwnerid(updatedCharacter.getOwnerid());
+                    return repo.save(character);
+                })
+                .orElseThrow(() -> new NotFoundException("Character not found"));
     }
 
 }

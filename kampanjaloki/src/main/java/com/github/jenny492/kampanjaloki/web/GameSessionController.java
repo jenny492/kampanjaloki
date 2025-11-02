@@ -1,5 +1,6 @@
 package com.github.jenny492.kampanjaloki.web;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -51,5 +53,19 @@ public class GameSessionController {
             throw new NotFoundException("Session not found");
         }
         repo.deleteById(id);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public GameSession updateSession(@PathVariable Long id, @Valid @RequestBody GameSession updatedSession) {
+        return repo.findById(id)
+                .map(session -> {
+                    session.setTitle(updatedSession.getTitle());
+                    session.setContent(updatedSession.getContent());
+                    session.setSession_date(updatedSession.getSession_date());
+                    session.setUpdated_at(LocalDateTime.now());
+                    return repo.save(session);
+                })
+                .orElseThrow(() -> new NotFoundException("Session not found"));
     }
 }
