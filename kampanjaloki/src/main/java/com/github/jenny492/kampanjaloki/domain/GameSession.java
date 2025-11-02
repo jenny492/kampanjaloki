@@ -22,12 +22,12 @@ public class GameSession {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long sessionid;
 
     @ManyToOne
     @JoinColumn(name = "campaignid")
     @NotNull
-    private Campaign campaign;
+    private Campaign campaignid;
 
     @NotBlank
     private String title;
@@ -40,7 +40,7 @@ public class GameSession {
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "session")
+    @OneToMany(mappedBy = "sessionid", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("orderIndex ASC")
     @JsonIgnore
     private List<GameEvent> events;
@@ -49,28 +49,28 @@ public class GameSession {
 
     }
 
-    public GameSession(Campaign campaign, String title, String content, LocalDateTime session_date, LocalDateTime created_at) {
-        this.campaign = campaign;
+    public GameSession(Campaign campaignid, String title, String content, LocalDateTime session_date, LocalDateTime created_at) {
+        this.campaignid = campaignid;
         this.title = title;
         this.content = content;
         this.session_date = session_date;
         this.created_at = created_at;
     }
 
-    public Long getId() {
-        return id;
+    public Long getSessionid() {
+        return sessionid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setSessionid(Long id) {
+        this.sessionid = id;
     }
   
-    public Campaign getCampaign() {
-        return campaign;
+    public Campaign getCampaignid() {
+        return campaignid;
     }
 
-    public void setCampaign(Campaign campaign) {
-        this.campaign = campaign;
+    public void setCampaignid(Campaign campaign) {
+        this.campaignid = campaign;
     }
 
     public String getTitle() {
@@ -129,7 +129,7 @@ public class GameSession {
 
     @Override
     public String toString() {
-        return "Session [id=" + id + ", title=" + title + ", content=" + content + ", session_date=" + session_date
+        return "Session [id=" + sessionid + ", title=" + title + ", content=" + content + ", session_date=" + session_date
                 + ", created_at=" + created_at + ", updated_at=" + updated_at + "]";
     }
 }

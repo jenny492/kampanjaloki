@@ -24,36 +24,37 @@ public class Campaign {
 
     @NotBlank(message = "Campaign name is mandatory")
     private String name;
-    
+
     private String description;
     private String image_url;
 
     @NotNull(message = "Campaign create time is mandatory")
     private LocalDateTime created_at;
-    
+
     @ManyToOne
-    @NotNull(message = "Campaign owner required")
-    private AppUser owner;
-  
-    @OneToMany
+    private AppUser ownerid;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "campaignid", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CampaignCharacter> campaignCharacters;
 
-    @OneToMany
+    @JsonIgnore
+    @OneToMany(mappedBy = "campaignid", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CampaignMember> campaignMembers;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "campaign")
     @JsonIgnore
+    @OneToMany(mappedBy = "campaignid", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GameSession> sessions;
-    
+
     public Campaign() {
     }
 
-    public Campaign(String name, String description, String image_url, LocalDateTime created_at, AppUser owner) {
+    public Campaign(String name, String description, String image_url, LocalDateTime created_at, AppUser ownerid) {
         this.name = name;
         this.description = description;
         this.image_url = image_url;
         this.created_at = created_at;
-        this.owner = owner;
+        this.ownerid = ownerid;
     }
 
     public List<GameSession> getSessions() {
@@ -104,12 +105,12 @@ public class Campaign {
         this.campaignid = id;
     }
 
-    public AppUser getOwner() {
-        return owner;
+    public AppUser getOwnerid() {
+        return ownerid;
     }
 
-    public void setOwner(AppUser owner) {
-        this.owner = owner;
+    public void setOwnerid(AppUser owner) {
+        this.ownerid = owner;
     }
 
     public List<CampaignCharacter> getCampaignCharacters() {
@@ -130,11 +131,10 @@ public class Campaign {
 
     @Override
     public String toString() {
-        return "Campaign [id=" + campaignid + ", name=" + name + ", description=" + description + ", image_url=" + image_url
-                + ", created_at=" + created_at + ", owner=" + owner + ", sessions=" + sessions + ", campaignCharacters="
+        return "Campaign [id=" + campaignid + ", name=" + name + ", description=" + description + ", image_url="
+                + image_url
+                + ", created_at=" + created_at + ", owner=" + ownerid + ", sessions=" + sessions + ", campaignCharacters="
                 + campaignCharacters + "]";
     }
 
-
-    
 }

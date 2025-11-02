@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 
@@ -12,16 +13,17 @@ public class GameEvent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long eventid;
  
     @ManyToOne
     @NotNull
-    private GameSession session;
+    @JoinColumn(name = "sessionid")
+    private GameSession sessionid;
     
     private String title;
 
  //   @NotNull
-    private Integer order_index;
+    private Integer orderIndex;
 
     private String content;
     private String details;
@@ -29,24 +31,24 @@ public class GameEvent {
     public GameEvent() {
     }
 
-    public GameEvent(GameSession session) {
-        this.session = session;
+    public GameEvent(GameSession sessionid) {
+        this.sessionid = sessionid;
     }
 
-    public Long getId() {
-        return id;
+    public Long getEventid() {
+        return eventid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEventid(Long id) {
+        this.eventid = id;
     }
 
-    public GameSession getSession() {
-        return session;
+    public GameSession getSessionid() {
+        return sessionid;
     }
 
-    public void setSession(GameSession session) {
-        this.session = session;
+    public void setSessionid(GameSession session) {
+        this.sessionid = session;
     }
 
     public String getTitle() {
@@ -57,8 +59,8 @@ public class GameEvent {
         this.title = title;
     }
 
-    public Integer getOrder_index() {
-        return order_index;
+    public Integer getOrderIndex() {
+        return orderIndex;
     }
 /* 
     public void setOrder_index(int order_index) {
@@ -83,7 +85,7 @@ public class GameEvent {
 
     @Override
     public String toString() {
-        return "Event [id=" + id + ", title=" + title + ", content=" + content
+        return "Event [id=" + eventid + ", title=" + title + ", content=" + content
                 + ", details=" + details + "]";
     }
 

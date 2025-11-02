@@ -9,10 +9,14 @@ import org.springframework.context.annotation.Bean;
 
 import com.github.jenny492.kampanjaloki.domain.AppUser;
 import com.github.jenny492.kampanjaloki.domain.Campaign;
+import com.github.jenny492.kampanjaloki.domain.CampaignCharacter;
+import com.github.jenny492.kampanjaloki.domain.CampaignMember;
 import com.github.jenny492.kampanjaloki.domain.GameEvent;
 import com.github.jenny492.kampanjaloki.domain.GameSession;
 import com.github.jenny492.kampanjaloki.domain.PlayerCharacter;
 import com.github.jenny492.kampanjaloki.repository.AppUserRepository;
+import com.github.jenny492.kampanjaloki.repository.CampaignCharacterRepository;
+import com.github.jenny492.kampanjaloki.repository.CampaignMemberRepository;
 import com.github.jenny492.kampanjaloki.repository.CampaignRepository;
 import com.github.jenny492.kampanjaloki.repository.GameEventRepository;
 import com.github.jenny492.kampanjaloki.repository.GameSessionRepository;
@@ -30,7 +34,9 @@ public class KampanjalokiApplication {
             AppUserRepository uRepository,
             GameSessionRepository sRepository,
             GameEventRepository eRepository, 
-            PlayerCharacterRepository charRepository) {
+            PlayerCharacterRepository charRepository,
+            CampaignCharacterRepository cCharRepository,
+            CampaignMemberRepository cMemRepository) {
         return (args) -> {
             LocalDateTime testTimeNow = LocalDateTime.now();
 
@@ -44,6 +50,11 @@ public class KampanjalokiApplication {
 
             Campaign testCampaign = new Campaign("testi", "desc", "img-url", testTimeNow, testUser1);
             cRepository.save(testCampaign);
+
+            CampaignMember campaignMember1 = new CampaignMember(testUser1, testCampaign);
+            CampaignMember campaignMember2 = new CampaignMember(testUser2, testCampaign);
+            cMemRepository.save(campaignMember1);
+            cMemRepository.save(campaignMember2);
 
             GameSession testSession1 = new GameSession(testCampaign, "Testiseikkailu eka", "Tässä seikkailussa tapahtui",
                     testTimeNow, testTimeNow);
@@ -73,6 +84,13 @@ public class KampanjalokiApplication {
             charRepository.save(character1);
             charRepository.save(character2);
             charRepository.save(character3);
+
+            CampaignCharacter campaignCharacter1 = new CampaignCharacter(character1, testCampaign);
+            CampaignCharacter campaignCharacter2 = new CampaignCharacter(character2, testCampaign);
+            cCharRepository.save(campaignCharacter1);
+            cCharRepository.save(campaignCharacter2);
+
+
         };
     }
 

@@ -3,6 +3,8 @@ package com.github.jenny492.kampanjaloki.domain;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,8 +16,9 @@ public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     //@Column(name = "user_id", nullable = false, updatable = false)
-    private Long id;
+    private Long userid;
 
     @NotBlank(message = "Username is mandatory")
     //@Column(name = "username", nullable = false, unique = true)
@@ -31,10 +34,16 @@ public class AppUser {
     @NotBlank(message = "User role missing")
     private String userrole;
 
-    @OneToMany
+    @JsonIgnore
+    @OneToMany(mappedBy = "ownerid", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PlayerCharacter> characters;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "ownerid", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Campaign> ownedCampaigns;
 
-    @OneToMany
+    @JsonIgnore
+    @OneToMany(mappedBy = "userid", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CampaignMember> campaignMembers;
 
     public AppUser() {
@@ -47,12 +56,12 @@ public class AppUser {
         this.userrole = userrole;
     }
 
-    public Long getId() {
-        return id;
+    public Long getUserid() {
+        return userid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserid(Long id) {
+        this.userid = id;
     }
 
     public String getUsername() {
@@ -105,7 +114,7 @@ public class AppUser {
 
     @Override
     public String toString() {
-        return "AppUser [id=" + id + ", username=" + username + ", passwordHash=" + passwordHash + ", created_at="
+        return "AppUser [id=" + userid + ", username=" + username + ", passwordHash=" + passwordHash + ", created_at="
                 + created_at + ", userrole=" + userrole + ", ownedCampaigns="
                 + ownedCampaigns + ", campaignMembers=" + campaignMembers + "]";
     }

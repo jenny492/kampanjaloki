@@ -13,53 +13,53 @@ public class CampaignCharacter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long campaigncharacterid;
 
     @ManyToOne
     @JoinColumn
-    @NotNull
-    private PlayerCharacter character;
+    @NotNull(message = "")
+    private PlayerCharacter characterid;
     
     @ManyToOne
     @JoinColumn
     @NotNull
-    private Campaign campaign;
+    private Campaign campaignid;
 
     public CampaignCharacter() {
     }
 
-    public CampaignCharacter(PlayerCharacter character, Campaign campaign) {
-        this.character = character;
-        this.campaign = campaign;
+    public CampaignCharacter(PlayerCharacter characterid, Campaign campaignid) {
+        this.characterid = characterid;
+        this.campaignid = campaignid;
     }
 
-    public PlayerCharacter getCharacter() {
-        return character;
+    public PlayerCharacter getCharacterid() {
+        return characterid;
     }
 
-    public void setCharacter(PlayerCharacter character_id) {
-        this.character = character_id;
+    public void setCharacterid(PlayerCharacter character_id) {
+        this.characterid = character_id;
     }
 
-    public Campaign getCampaign() {
-        return campaign;
+    public Campaign getCampaignid() {
+        return campaignid;
     }
 
-    public void setCampaign(Campaign campaign) {
-        this.campaign = campaign;
+    public void setCampaignid(Campaign campaign) {
+        this.campaignid = campaign;
     }
 
     @Override
     public String toString() {
-        return "CampaignCharacter [character=" + character + ", campaign=" + campaign + "]";
+        return "CampaignCharacter [character=" + characterid + ", campaign=" + campaignid + "]";
     }
 
-    public Long getId() {
-        return id;
+    public Long getCampaigncharacterid() {
+        return campaigncharacterid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCampaigncharacterid(Long id) {
+        this.campaigncharacterid = id;
     }
 
 

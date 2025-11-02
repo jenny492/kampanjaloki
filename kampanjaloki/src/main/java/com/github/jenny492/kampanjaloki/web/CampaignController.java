@@ -3,6 +3,7 @@ package com.github.jenny492.kampanjaloki.web;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,11 +20,11 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/campaigns")
-public class CampaignRestController {
+public class CampaignController {
 
     private CampaignRepository repo;
 
-    public CampaignRestController(CampaignRepository repo) {
+    public CampaignController(CampaignRepository repo) {
         this.repo = repo;
     }
 
@@ -42,6 +43,14 @@ public class CampaignRestController {
     @ResponseStatus(HttpStatus.CREATED)
     public Campaign createCampaign(@Valid @RequestBody Campaign campaign) {
         return repo.save(campaign);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteCampaignById(@PathVariable Long id) {
+        if (!repo.findById(id).isPresent()) {
+            throw new NotFoundException("Campaign not found");
+        }
+        repo.deleteById(id);
     }
 
 }
