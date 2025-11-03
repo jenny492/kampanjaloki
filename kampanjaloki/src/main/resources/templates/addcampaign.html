@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <title>Index</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <h1>Luo kampanja</h1>
+
+    <div>
+        <form th:object="${campaign}" th:action="@{../savecampaign}" action="#" method="post">
+            <input type="text" id="campaignid" th:field="*{campaignid}" readonly/>
+            
+            <label for="name">Nimi</label>
+            <input type="text" id="name" th:field="*{name}" />
+
+            <label for="description">Kuvaus</label>
+            <input type="text" id="description" th:field="*{description}" />
+
+            <label for="image_url">Kuva</label>
+            <input type="text" id="image_url" th:field="*{image_url}" />
+
+            <input type="submit" value="Tallenna"></input>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,6 +1,5 @@
 package com.github.jenny492.kampanjaloki.web;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.jenny492.kampanjaloki.domain.GameSession;
 import com.github.jenny492.kampanjaloki.domain.PlayerCharacter;
 import com.github.jenny492.kampanjaloki.exception.NotFoundException;
 import com.github.jenny492.kampanjaloki.repository.PlayerCharacterRepository;
