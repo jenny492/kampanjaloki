@@ -22,26 +22,26 @@ public class PlayerCharacter {
 
     @NotBlank(message = "Character must have a name")
     private String name;
-    
+
     private String description;
     private String image_url;
     private String link;
 
     @ManyToOne
     @NotNull
-    private AppUser ownerid;
+    private AppUser owner;
 
     @OneToMany
     @JsonIgnore
     private List<CampaignCharacter> campaignCharacters;
 
-    public PlayerCharacter () {
+    public PlayerCharacter() {
     }
 
-    public PlayerCharacter(String name, String description, AppUser ownerid) {
+    public PlayerCharacter(String name, String description, AppUser owner) {
         this.name = name;
         this.description = description;
-        this.ownerid = ownerid;
+        this.owner = owner;
     }
 
     public Long getCharacterid() {
@@ -84,12 +84,12 @@ public class PlayerCharacter {
         this.link = link;
     }
 
-    public AppUser getOwnerid() {
-        return ownerid;
+    public AppUser getOwner() {
+        return owner;
     }
 
-    public void setOwnerid(AppUser owner) {
-        this.ownerid = owner;
+    public void setOwner(AppUser owner) {
+        this.owner = owner;
     }
 
     @Override

@@ -18,40 +18,40 @@ public class CampaignCharacter {
     @ManyToOne
     @JoinColumn
     @NotNull(message = "")
-    private PlayerCharacter characterid;
-    
+    private PlayerCharacter character;
+
     @ManyToOne
     @JoinColumn
     @NotNull
-    private Campaign campaignid;
+    private Campaign campaign;
 
     public CampaignCharacter() {
     }
 
-    public CampaignCharacter(PlayerCharacter characterid, Campaign campaignid) {
-        this.characterid = characterid;
-        this.campaignid = campaignid;
+    public CampaignCharacter(PlayerCharacter character, Campaign campaign) {
+        this.character = character;
+        this.campaign = campaign;
     }
 
-    public PlayerCharacter getCharacterid() {
-        return characterid;
+    public PlayerCharacter getCharacter() {
+        return character;
     }
 
-    public void setCharacterid(PlayerCharacter character_id) {
-        this.characterid = character_id;
+    public void setCharacter(PlayerCharacter character_id) {
+        this.character = character_id;
     }
 
-    public Campaign getCampaignid() {
-        return campaignid;
+    public Campaign getCampaign() {
+        return campaign;
     }
 
-    public void setCampaignid(Campaign campaign) {
-        this.campaignid = campaign;
+    public void setCampaign(Campaign campaign) {
+        this.campaign = campaign;
     }
 
     @Override
     public String toString() {
-        return "CampaignCharacter [character=" + characterid + ", campaign=" + campaignid + "]";
+        return "CampaignCharacter [character=" + character + ", campaign=" + campaign + "]";
     }
 
     public Long getCampaigncharacterid() {
@@ -62,7 +62,4 @@ public class CampaignCharacter {
         this.campaigncharacterid = id;
     }
 
-
-
-    
 }

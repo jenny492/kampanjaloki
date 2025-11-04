@@ -56,14 +56,15 @@ public class PlayerCharacterController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public PlayerCharacter updateCharacter(@PathVariable Long id, @Valid @RequestBody PlayerCharacter updatedCharacter) {
+    public PlayerCharacter updateCharacter(@PathVariable Long id,
+            @Valid @RequestBody PlayerCharacter updatedCharacter) {
         return repo.findById(id)
                 .map(character -> {
                     character.setName(updatedCharacter.getName());
                     character.setDescription(updatedCharacter.getDescription());
                     character.setImage_url(updatedCharacter.getImage_url());
                     character.setLink(updatedCharacter.getLink());
-                    character.setOwnerid(updatedCharacter.getOwnerid());
+                    character.setOwner(updatedCharacter.getOwner());
                     return repo.save(character);
                 })
                 .orElseThrow(() -> new NotFoundException("Character not found"));

@@ -12,7 +12,6 @@
 
     <div>
         <form th:object="${campaign}" th:action="@{../savecampaign}" action="#" method="post">
-            <input type="text" id="campaignid" th:field="*{campaignid}" readonly/>
             
             <label for="name">Nimi</label>
             <input type="text" id="name" th:field="*{name}" />

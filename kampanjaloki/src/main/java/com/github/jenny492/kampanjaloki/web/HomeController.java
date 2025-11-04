@@ -18,7 +18,6 @@ import com.github.jenny492.kampanjaloki.repository.GameEventRepository;
 import com.github.jenny492.kampanjaloki.repository.GameSessionRepository;
 import com.github.jenny492.kampanjaloki.repository.PlayerCharacterRepository;
 
-
 @Controller
 public class HomeController {
 
@@ -34,7 +33,7 @@ public class HomeController {
     private PlayerCharacterRepository charRepository;
 
     public HomeController(CampaignRepository cRepository, AppUserRepository uRepository,
-    GameSessionRepository sRepository, GameEventRepository eRepository) {
+            GameSessionRepository sRepository, GameEventRepository eRepository) {
         this.cRepository = cRepository;
         this.uRepository = uRepository;
     }
@@ -59,19 +58,19 @@ public class HomeController {
         model.addAttribute("campaign", new Campaign());
         return "addcampaign";
     }
-    
+
     @PostMapping("/savecampaign")
     public String saveCampaign(Campaign campaign) {
         LocalDateTime timeNow = LocalDateTime.now();
         campaign.setCreated_at(timeNow);
 
-        Authentication auth =  SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currUserName = auth.getName();
         AppUser user = uRepository.findByUsername(currUserName);
-        campaign.setOwnerid(user);
-    
+        campaign.setOwner(user);
+
         cRepository.save(campaign);
-        return "redirect:dashboard";
+        return "redirect:/dashboard";
     }
-    
+
 }

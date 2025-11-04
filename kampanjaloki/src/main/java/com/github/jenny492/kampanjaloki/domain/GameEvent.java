@@ -14,15 +14,15 @@ public class GameEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long eventid;
- 
+
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "sessionid")
-    private GameSession sessionid;
-    
+    @JoinColumn(name = "session")
+    private GameSession session;
+
     private String title;
 
- //   @NotNull
+    // @NotNull
     private Integer orderIndex;
 
     private String content;
@@ -31,8 +31,8 @@ public class GameEvent {
     public GameEvent() {
     }
 
-    public GameEvent(GameSession sessionid) {
-        this.sessionid = sessionid;
+    public GameEvent(GameSession session) {
+        this.session = session;
     }
 
     public Long getEventid() {
@@ -43,12 +43,12 @@ public class GameEvent {
         this.eventid = id;
     }
 
-    public GameSession getSessionid() {
-        return sessionid;
+    public GameSession getSession() {
+        return session;
     }
 
-    public void setSessionid(GameSession session) {
-        this.sessionid = session;
+    public void setSession(GameSession session) {
+        this.session = session;
     }
 
     public String getTitle() {
@@ -62,10 +62,11 @@ public class GameEvent {
     public Integer getOrderIndex() {
         return orderIndex;
     }
-/* 
-    public void setOrder_index(int order_index) {
-        this.order_index = order_index;
-    } */
+    /*
+     * public void setOrder_index(int order_index) {
+     * this.order_index = order_index;
+     * }
+     */
 
     public String getContent() {
         return content;

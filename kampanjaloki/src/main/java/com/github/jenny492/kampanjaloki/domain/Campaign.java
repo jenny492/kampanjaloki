@@ -32,29 +32,29 @@ public class Campaign {
     private LocalDateTime created_at;
 
     @ManyToOne
-    private AppUser ownerid;
+    private AppUser owner;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "campaignid", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CampaignCharacter> campaignCharacters;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "campaignid", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CampaignMember> campaignMembers;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "campaignid", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GameSession> sessions;
 
     public Campaign() {
     }
 
-    public Campaign(String name, String description, String image_url, LocalDateTime created_at, AppUser ownerid) {
+    public Campaign(String name, String description, String image_url, LocalDateTime created_at, AppUser owner) {
         this.name = name;
         this.description = description;
         this.image_url = image_url;
         this.created_at = created_at;
-        this.ownerid = ownerid;
+        this.owner = owner;
     }
 
     public List<GameSession> getSessions() {
@@ -105,12 +105,12 @@ public class Campaign {
         this.campaignid = id;
     }
 
-    public AppUser getOwnerid() {
-        return ownerid;
+    public AppUser getOwner() {
+        return owner;
     }
 
-    public void setOwnerid(AppUser owner) {
-        this.ownerid = owner;
+    public void setOwner(AppUser owner) {
+        this.owner = owner;
     }
 
     public List<CampaignCharacter> getCampaignCharacters() {
@@ -133,7 +133,7 @@ public class Campaign {
     public String toString() {
         return "Campaign [id=" + campaignid + ", name=" + name + ", description=" + description + ", image_url="
                 + image_url
-                + ", created_at=" + created_at + ", owner=" + ownerid + ", sessions=" + sessions + ", campaignCharacters="
+                + ", created_at=" + created_at + ", owner=" + owner + ", sessions=" + sessions + ", campaignCharacters="
                 + campaignCharacters + "]";
     }
 

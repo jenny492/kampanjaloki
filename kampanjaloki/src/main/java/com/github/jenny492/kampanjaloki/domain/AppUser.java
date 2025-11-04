@@ -9,23 +9,22 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-
 @Entity
-//@Table(name = "app_users")
+// @Table(name = "app_users")
 public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    //@Column(name = "user_id", nullable = false, updatable = false)
+    // @Column(name = "user_id", nullable = false, updatable = false)
     private Long userid;
 
     @NotBlank(message = "Username is mandatory")
-    //@Column(name = "username", nullable = false, unique = true)
+    // @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @NotBlank(message = "Password is mandatory")
-    //@Column(name = "password_hash", nullable = false)
+    // @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
     @NotNull(message = "Time created missing")
@@ -35,15 +34,15 @@ public class AppUser {
     private String userrole;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "ownerid", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PlayerCharacter> characters;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "ownerid", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Campaign> ownedCampaigns;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "userid", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CampaignMember> campaignMembers;
 
     public AppUser() {
@@ -118,6 +117,5 @@ public class AppUser {
                 + created_at + ", userrole=" + userrole + ", ownedCampaigns="
                 + ownedCampaigns + ", campaignMembers=" + campaignMembers + "]";
     }
-
 
 }

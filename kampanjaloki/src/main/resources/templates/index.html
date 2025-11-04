@@ -11,7 +11,7 @@
     <h1>Kampanjaloki</h1>
     <p><a th:href="@{/login}">Kirjaudu sisään</a></p>
 
-    <p><a sec:authorize="hasAuthority ('ADMIN')" th:href="@{/dashboard}">Hallintapaneeli</a></p>
+    <p><a sec:authorize="hasAnyAuthority ('USER', 'ADMIN')" th:href="@{/dashboard}">Hallintapaneeli</a></p>
 
     <div>
         <form th:action="@{/logout}" method="post">

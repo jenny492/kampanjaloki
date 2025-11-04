@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
 </head>
+
 <body>
     <header>
         <h1>Hallintapaneeli</h1>
+        <p><a th:href="@{/}">Pääsivu</a></p>
     </header>
-    <h1 th:text="'Käyttäjät'"></h1>
+    <h1 th:text="'Käyttäjät'" sec:authorize="hasAuthority ('ADMIN')"></h1>
 
     <table sec:authorize="hasAuthority ('ADMIN')" class="table table-striped">
         <tr>
@@ -28,16 +31,18 @@
             <th>Nimi</th>
             <th>Kuvaus</th>
             <th>Omistaja</th>
+            <th sec:authorize="hasAuthority ('ADMIN')"></th>
+            <th sec:authorize="hasAuthority ('ADMIN')"></th>
         </tr>
         <tr th:each="character : ${characters}">
             <td th:text="${character.name}"></td>
             <td th:text="${character.description}"></td>
-            <td th:text="${character.ownerid.getUsername()}"></td>
+            <td th:text="${character.owner.getUsername()}"></td>
         </tr>
     </table>
 
     <h1 th:text="'Kampanjat'"></h1>
-    <p><a th:href="@{/addcampaign}">Luo uusi kampanja</a></p>
+    <p sec:authorize="hasAuthority ('ADMIN')"><a th:href="@{/addcampaign}">Luo uusi kampanja</a></p>
     <table class="table table-striped">
         <tr>
             <th>Kampanja</th>
@@ -45,13 +50,15 @@
             <th>Kuva</th>
             <th>Tehty</th>
             <th>Omistaja</th>
+            <th sec:authorize="hasAuthority ('ADMIN')"></th>
         </tr>
         <tr th:each="campaign : ${campaigns}">
             <td th:text="${campaign.name}"></td>
             <td th:text="${campaign.description}"></td>
             <td th:text="${campaign.image_url}"></td>
             <td th:text="${campaign.created_at}"></td>
-            <td th:text="${campaign.ownerid.getUserid()}"></td>
+            <td th:text="${campaign.owner.getUsername()}"></td>
+            <td sec:authorize="hasAuthority ('ADMIN')"><a th:href="@{/delete/{id}(id=${campaign.campaignid})}">Poista</a></td>
         </tr>
     </table>
     <h1 th:text="'Seikkailut'"></h1>
@@ -63,7 +70,7 @@
             <th>Päivämäärä</th>
         </tr>
         <tr th:each="gsession : ${sessions}">
-            <td th:text="${gsession.campaignid.getName()}"></td>
+            <td th:text="${gsession.campaign.getName()}"></td>
             <td th:text="${gsession.title}"></td>
             <td th:text="${gsession.content}"></td>
             <td th:text="${gsession.session_date}"></td>
@@ -77,11 +84,12 @@
             <th>Sisältö</th>
         </tr>
         <tr th:each="event : ${events}">
-            <td th:text="${event.sessionid.title}"></td>
+            <td th:text="${event.session.title}"></td>
             <td th:text="${event.orderIndex}"></td>
             <td th:text="${event.content}"></td>
         </tr>
     </table>
-    
+
 </body>
+
 </html>

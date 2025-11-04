@@ -19,40 +19,40 @@ public class CampaignMember {
     @ManyToOne
     @JoinColumn
     @NotNull
-    private AppUser userid;
-    
+    private AppUser user;
+
     @ManyToOne
     @JoinColumn
     @NotNull
-    private Campaign campaignid;
+    private Campaign campaign;
 
     public CampaignMember() {
     }
-    
-    public CampaignMember(AppUser userid, Campaign campaignid) {
-        this.userid = userid;
-        this.campaignid = campaignid;
+
+    public CampaignMember(AppUser user, Campaign campaign) {
+        this.user = user;
+        this.campaign = campaign;
     }
-    
-    public AppUser getUserid() {
-        return userid;
+
+    public AppUser getuser() {
+        return user;
     }
-    
-    public void setUserid(AppUser user) {
-        this.userid = user;
+
+    public void setuser(AppUser user) {
+        this.user = user;
     }
-    
-    public Campaign getCampaignid() {
-        return campaignid;
+
+    public Campaign getCampaign() {
+        return campaign;
     }
-    
-    public void setCampaignid(Campaign campaign) {
-        this.campaignid = campaign;
+
+    public void setCampaign(Campaign campaign) {
+        this.campaign = campaign;
     }
-    
+
     @Override
     public String toString() {
-        return "CampaignMembers [user=" + userid + ", campaign=" + campaignid + "]";
+        return "CampaignMembers [user=" + user + ", campaign=" + campaign + "]";
     }
 
     public Long getCampaignmemberid() {
@@ -62,7 +62,5 @@ public class CampaignMember {
     public void setCampaignmemberid(Long campaignmemberid) {
         this.campaignmemberid = campaignmemberid;
     }
-
-    
 
 }

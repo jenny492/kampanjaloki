@@ -48,20 +48,24 @@ public class CampaignMemberController {
 
     @DeleteMapping("/{id}")
     public void deleteCampaignMemberById(@PathVariable Long id) {
-        if(!repo.findById(id).isPresent()) {
+        if (!repo.findById(id).isPresent()) {
             throw new NotFoundException("Campaign member not found");
         }
         repo.deleteById(id);
     }
 
-    //TODO Pitää tehdä tarkistus sille, että ei tule tehtyä tuplataulua samoilla tiedoilla
+    // TODO Pitää tehdä tarkistus sille, että ei tule tehtyä tuplataulua samoilla
+    // tiedoilla
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public CampaignMember updateCampaignMember(@PathVariable Long id, @Valid @RequestBody CampaignMember updatedCampaignMember) {
+    public CampaignMember updateCampaignMember(@PathVariable Long id,
+            @Valid @RequestBody CampaignMember updatedCampaignMember) {
         return repo.findById(id)
                 .map(campaignMember -> {
-                    campaignMember.setCampaignid(updatedCampaignMember.getCampaignid());;
-                    campaignMember.setUserid(updatedCampaignMember.getUserid());;
+                    campaignMember.setCampaign(updatedCampaignMember.getCampaign());
+                    ;
+                    campaignMember.setuser(updatedCampaignMember.getuser());
+                    ;
                     return repo.save(campaignMember);
                 })
                 .orElseThrow(() -> new NotFoundException("Campaign member not found"));

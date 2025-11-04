@@ -7,6 +7,6 @@ import com.github.jenny492.kampanjaloki.domain.Campaign;
 
 public interface CampaignRepository extends CrudRepository<Campaign, Long> {
 
-    boolean existsByOwnerid(AppUser ownerid);
+    boolean existsByOwner(AppUser owner);
 
 }

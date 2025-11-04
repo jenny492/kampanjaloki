@@ -25,9 +25,9 @@ public class GameSession {
     private Long sessionid;
 
     @ManyToOne
-    @JoinColumn(name = "campaignid")
+    @JoinColumn(name = "campaign")
     @NotNull
-    private Campaign campaignid;
+    private Campaign campaign;
 
     @NotBlank
     private String title;
@@ -39,17 +39,18 @@ public class GameSession {
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
 
-    @OneToMany(mappedBy = "sessionid", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("orderIndex ASC")
     @JsonIgnore
     private List<GameEvent> events;
 
-    public GameSession () {
+    public GameSession() {
 
     }
 
-    public GameSession(Campaign campaignid, String title, String content, LocalDateTime session_date, LocalDateTime created_at) {
-        this.campaignid = campaignid;
+    public GameSession(Campaign campaign, String title, String content, LocalDateTime session_date,
+            LocalDateTime created_at) {
+        this.campaign = campaign;
         this.title = title;
         this.content = content;
         this.session_date = session_date;
@@ -63,13 +64,13 @@ public class GameSession {
     public void setSessionid(Long id) {
         this.sessionid = id;
     }
-  
-    public Campaign getCampaignid() {
-        return campaignid;
+
+    public Campaign getCampaign() {
+        return campaign;
     }
 
-    public void setCampaignid(Campaign campaign) {
-        this.campaignid = campaign;
+    public void setCampaign(Campaign campaign) {
+        this.campaign = campaign;
     }
 
     public String getTitle() {
@@ -128,7 +129,8 @@ public class GameSession {
 
     @Override
     public String toString() {
-        return "Session [id=" + sessionid + ", title=" + title + ", content=" + content + ", session_date=" + session_date
+        return "Session [id=" + sessionid + ", title=" + title + ", content=" + content + ", session_date="
+                + session_date
                 + ", created_at=" + created_at + ", updated_at=" + updated_at + "]";
     }
 }

@@ -29,7 +29,6 @@ public class AppUserController {
     private AppUserRepository repo;
     private CampaignRepository cRepo;
 
-
     public AppUserController(AppUserRepository repo, CampaignRepository cRepo) {
         this.repo = repo;
         this.cRepo = cRepo;
@@ -55,10 +54,10 @@ public class AppUserController {
     @DeleteMapping("/{id}")
     public void deleteUserById(@PathVariable Long id) throws BadRequestException {
         AppUser user = repo.findById(id)
-        .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException("User not found"));
 
-        boolean isLinkedToCampaign = cRepo.existsByOwnerid(user);
-        if(isLinkedToCampaign) {
+        boolean isLinkedToCampaign = cRepo.existsByOwner(user);
+        if (isLinkedToCampaign) {
             throw new ConflictException("Can not delete user linked to existing campaign as an owner");
         }
     }

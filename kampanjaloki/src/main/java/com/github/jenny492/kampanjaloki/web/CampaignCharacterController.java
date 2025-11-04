@@ -31,7 +31,8 @@ public class CampaignCharacterController {
     private CampaignRepository cRepo;
     private PlayerCharacterRepository charRepo;
 
-    public CampaignCharacterController(CampaignCharacterRepository repo, CampaignRepository cRepo, PlayerCharacterRepository charRepo) {
+    public CampaignCharacterController(CampaignCharacterRepository repo, CampaignRepository cRepo,
+            PlayerCharacterRepository charRepo) {
         this.repo = repo;
         this.cRepo = cRepo;
         this.charRepo = charRepo;
@@ -48,18 +49,18 @@ public class CampaignCharacterController {
                 .orElseThrow(() -> new NotFoundException("Campaign character not found"));
     }
 
-    //TODO: tarvitseeko tähän tarkistuksen, että onko hahmo jo olemassa kampanjassa
+    // TODO: tarvitseeko tähän tarkistuksen, että onko hahmo jo olemassa kampanjassa
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CampaignCharacter createCampaignCharacter(@Valid @RequestBody CampaignCharacter campaignCharacter) {
-        Campaign campaign = cRepo.findById(campaignCharacter.getCampaignid().getCampaignid())
-        .orElseThrow(() -> new NotFoundException("Campaign not found"));
+        Campaign campaign = cRepo.findById(campaignCharacter.getCampaign().getCampaignid())
+                .orElseThrow(() -> new NotFoundException("Campaign not found"));
 
-        PlayerCharacter character = charRepo.findById(campaignCharacter.getCharacterid().getCharacterid())
-        .orElseThrow(() -> new NotFoundException("Character not found"));
+        PlayerCharacter character = charRepo.findById(campaignCharacter.getCharacter().getCharacterid())
+                .orElseThrow(() -> new NotFoundException("Character not found"));
 
-        campaignCharacter.setCampaignid(campaign);
-        campaignCharacter.setCharacterid(character);
+        campaignCharacter.setCampaign(campaign);
+        campaignCharacter.setCharacter(character);
 
         return repo.save(campaignCharacter);
     }
@@ -74,11 +75,13 @@ public class CampaignCharacterController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public CampaignCharacter updateCampaignCharacter(@PathVariable Long id, @Valid @RequestBody CampaignCharacter updatedCampaignCharacter) {
+    public CampaignCharacter updateCampaignCharacter(@PathVariable Long id,
+            @Valid @RequestBody CampaignCharacter updatedCampaignCharacter) {
         return repo.findById(id)
                 .map(campaignCharacter -> {
-                    campaignCharacter.setCampaignid(updatedCampaignCharacter.getCampaignid());
-                    campaignCharacter.setCharacterid(updatedCampaignCharacter.getCharacterid());;
+                    campaignCharacter.setCampaign(updatedCampaignCharacter.getCampaign());
+                    campaignCharacter.setCharacter(updatedCampaignCharacter.getCharacter());
+                    ;
                     return repo.save(campaignCharacter);
                 })
                 .orElseThrow(() -> new NotFoundException("Campaign character not found"));
