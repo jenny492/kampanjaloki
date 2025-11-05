@@ -1,73 +1,48 @@
 package com.github.jenny492.kampanjaloki.web;
 
-import java.util.List;
+import org.springframework.stereotype.Controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.github.jenny492.kampanjaloki.domain.Campaign;
+import com.github.jenny492.kampanjaloki.domain.CampaignCharacter;
 import com.github.jenny492.kampanjaloki.domain.PlayerCharacter;
 import com.github.jenny492.kampanjaloki.exception.NotFoundException;
+import com.github.jenny492.kampanjaloki.repository.CampaignCharacterRepository;
+import com.github.jenny492.kampanjaloki.repository.CampaignRepository;
 import com.github.jenny492.kampanjaloki.repository.PlayerCharacterRepository;
 
-import jakarta.validation.Valid;
-
-@RestController
-@RequestMapping("/api/characters")
+@Controller
 public class PlayerCharacterController {
 
-    private PlayerCharacterRepository repo;
+    PlayerCharacterRepository cRepository;
+    CampaignCharacterRepository ccRepository;
+    CampaignRepository campaignRepository;
 
-    public PlayerCharacterController(PlayerCharacterRepository repo) {
-        this.repo = repo;
+    public PlayerCharacterController(PlayerCharacterRepository cRepository, CampaignRepository campaignRepository,
+    CampaignCharacterRepository ccRepository) {
+        this.cRepository = cRepository;
+        this.campaignRepository = campaignRepository;
+        this.ccRepository = ccRepository;
     }
 
-    @GetMapping
-    public List<PlayerCharacter> getAllCharacters() {
-        return (List<PlayerCharacter>) repo.findAll();
-    }
+    @PostMapping(value = "/addCharacterToCampaign")
+    public String addCharacterToCampaign(@RequestParam("campaignid") Long campaignid, @RequestParam("characterid") Long characterid) {
+        Campaign campaign = campaignRepository.findById(campaignid)
+        .orElseThrow(() -> new NotFoundException("Campaign not found"));
+        PlayerCharacter character = cRepository.findById(characterid)
+        .orElseThrow(() -> new NotFoundException("Character not found"));
 
-    @GetMapping("/{id}")
-    public PlayerCharacter getCharacterById(@PathVariable Long id) {
-        return repo.findById(id)
-                .orElseThrow(() -> new NotFoundException("Character not found"));
-    }
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public PlayerCharacter createCharacter(@Valid @RequestBody PlayerCharacter character) {
-        return repo.save(character);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteCharacterById(@PathVariable Long id) {
-        if (!repo.findById(id).isPresent()) {
-            throw new NotFoundException("Character not found");
+        // Check if character is already in the campaign
+        if(ccRepository.existsByCharacterAndCampaign(character, campaign)) {
+            return "redirect:/dashboard";
         }
-        repo.deleteById(id);
+
+        CampaignCharacter campaignCharacter = new CampaignCharacter(character, campaign);
+        ccRepository.save(campaignCharacter);
+        return "redirect:/dashboard";
     }
 
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public PlayerCharacter updateCharacter(@PathVariable Long id,
-            @Valid @RequestBody PlayerCharacter updatedCharacter) {
-        return repo.findById(id)
-                .map(character -> {
-                    character.setName(updatedCharacter.getName());
-                    character.setDescription(updatedCharacter.getDescription());
-                    character.setImage_url(updatedCharacter.getImage_url());
-                    character.setLink(updatedCharacter.getLink());
-                    character.setOwner(updatedCharacter.getOwner());
-                    return repo.save(character);
-                })
-                .orElseThrow(() -> new NotFoundException("Character not found"));
-    }
 
 }

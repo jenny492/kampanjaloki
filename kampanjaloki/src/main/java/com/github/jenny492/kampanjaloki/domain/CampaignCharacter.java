@@ -6,9 +6,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
+// Makes sure that table contains only unique character and campaign pairs
+@Table(uniqueConstraints = 
+{@UniqueConstraint(columnNames = {"character_id", "campaign_id"})})
 public class CampaignCharacter {
 
     @Id
@@ -16,12 +21,12 @@ public class CampaignCharacter {
     private Long campaigncharacterid;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "character_id")
     @NotNull(message = "")
     private PlayerCharacter character;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "campaign_id")
     @NotNull
     private Campaign campaign;
 

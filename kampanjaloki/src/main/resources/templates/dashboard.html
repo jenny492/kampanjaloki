@@ -43,24 +43,38 @@
 
     <h1 th:text="'Kampanjat'"></h1>
     <p sec:authorize="hasAuthority ('ADMIN')"><a th:href="@{/addcampaign}">Luo uusi kampanja</a></p>
-    <table class="table table-striped">
-        <tr>
-            <th>Kampanja</th>
-            <th>Kuvaus</th>
-            <th>Kuva</th>
-            <th>Tehty</th>
-            <th>Omistaja</th>
-            <th sec:authorize="hasAuthority ('ADMIN')"></th>
-        </tr>
-        <tr th:each="campaign : ${campaigns}">
-            <td th:text="${campaign.name}"></td>
-            <td th:text="${campaign.description}"></td>
-            <td th:text="${campaign.image_url}"></td>
-            <td th:text="${campaign.created_at}"></td>
-            <td th:text="${campaign.owner.getUsername()}"></td>
-            <td sec:authorize="hasAuthority ('ADMIN')"><a th:href="@{/delete/{id}(id=${campaign.campaignid})}">Poista</a></td>
-        </tr>
-    </table>
+
+    <div th:each="campaign : ${campaigns}">
+        <h2 th:text="${campaign.name}"></h2>
+        <p th:text="${campaign.description}"></p>
+
+        <h3 th:text="'Kampanjan hahmot'"></h3>
+
+        <form th:action="@{/addCharacterToCampaign}" method="post">
+            <input type="hidden" name="campaignid" th:value="${campaign.campaignid}" />
+            <label for="charlist">Lisää hahmo</label>
+            <select id="charlist" name="characterid">
+                <option th:each="character: ${characters}" th:value="${character.characterid}"
+                    th:text="${character.name}">
+                </option>
+            </select>
+            <input type="submit" value="Lisää" />
+        </form>
+
+        <ul style="list-style-type:none;">
+            <li th:each="cc : ${campaign.campaignCharacters}" th:text="${cc.character.name}"></li>
+            <li th:if="${#lists.isEmpty(campaign.campaignCharacters)}">Ei hahmoja</li>
+        </ul>
+
+        <div sec:authorize="hasAuthority ('ADMIN')">
+            <tr>
+                <td><a th:href="@{/delete/{id}(id=${campaign.campaignid})}">Muokkaa kampanjaa</a></td>
+                <td><a th:href="@{/delete/{id}(id=${campaign.campaignid})}">Poista kampanja</a></td>
+            </tr>
+        </div>
+        <p th:text="${campaign.created_at}"></p>
+        <p th:text="${campaign.owner.getUsername()}"></p>
+    </div>
     <h1 th:text="'Seikkailut'"></h1>
     <table class="table table-striped">
         <tr>

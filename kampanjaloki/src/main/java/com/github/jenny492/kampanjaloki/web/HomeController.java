@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.github.jenny492.kampanjaloki.domain.AppUser;
 import com.github.jenny492.kampanjaloki.domain.Campaign;
 import com.github.jenny492.kampanjaloki.repository.AppUserRepository;
+import com.github.jenny492.kampanjaloki.repository.CampaignCharacterRepository;
 import com.github.jenny492.kampanjaloki.repository.CampaignRepository;
 import com.github.jenny492.kampanjaloki.repository.GameEventRepository;
 import com.github.jenny492.kampanjaloki.repository.GameSessionRepository;
@@ -31,9 +32,11 @@ public class HomeController {
     private GameEventRepository eRepository;
     @Autowired
     private PlayerCharacterRepository charRepository;
+    //@Autowired
+    //private CampaignCharacterRepository ccRepository;
 
     public HomeController(CampaignRepository cRepository, AppUserRepository uRepository,
-            GameSessionRepository sRepository, GameEventRepository eRepository) {
+            GameSessionRepository sRepository, GameEventRepository eRepository, CampaignCharacterRepository ccRepository) {
         this.cRepository = cRepository;
         this.uRepository = uRepository;
     }
@@ -50,6 +53,7 @@ public class HomeController {
         model.addAttribute("sessions", sRepository.findAll());
         model.addAttribute("events", eRepository.findAll());
         model.addAttribute("characters", charRepository.findAll());
+        //model.addAttribute("campaigncharacters", ccRepository.findAll());
         return "dashboard";
     }
 
