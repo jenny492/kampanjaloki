@@ -72,14 +72,20 @@
 
         <h3 th:text="'Kampanjassa tapahtunut'"></h3>
         <p sec:authorize="hasAuthority ('ADMIN')">
-            <a th:href="@{/addsession(campaignid=${campaign.campaignid})}">Lisää uusi seikkailu</a>
+            <a th:href="@{/addsession(campaignid=${campaign.campaignid})}">Lisää uusi pelikerta (seikkailu)</a>
         </p>
-        <div th:each="gsession : ${gameSessions}">
+
+        <div th:each="gsession : ${campaign.sessions}">
             <h4 th:text="${gsession.title}"></h4>
             <p th:text="${gsession.content}"></p>
             <div th:each="event : ${gsession.events}">
                 <h5 th:text="${event.title}"></h5>
                 <p th:text="${event.content}"></p>
+            </div>
+            
+            <div sec:authorize="hasAuthority ('ADMIN')">
+               
+                <p><a th:href="@{/addevent(sessionid=${gsession.sessionid})}">Lisää tapahtumia pelikerralle</a></p>
             </div>
         </div>
 

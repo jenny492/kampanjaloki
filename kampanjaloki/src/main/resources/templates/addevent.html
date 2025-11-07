@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <header>
+        <h1>Lisää tapahtumia</h1>
+        <p><a th:href="@{/dashboard}">Takaisin hallintapaneeliin</a></p>
+
+    </header>
+    <form th:action="@{/saveEvent}" th:object="${event}" method="post">
+
+        <input type="hidden" th:name="sessionid" th:value="${sessionid}" />
+
+        <label for="title">Tapahtuman otsikko:</label>
+        <input type="text" id="title" th:field="*{title}" /><br />
+
+        <label for="content">Mitä tapahtui:</label>
+        <textarea id="content" th:field="*{content}"></textarea><br />
+
+        <input type="submit" value="Lisää tapahtuma" />
+    </form>
+</body>
+
+</html>
