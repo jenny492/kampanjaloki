@@ -31,8 +31,9 @@ public class GameEvent {
     public GameEvent() {
     }
 
-    public GameEvent(GameSession session) {
+    public GameEvent(GameSession session, String content) {
         this.session = session;
+        this.content = content;
     }
 
     public Long getEventid() {

@@ -46,10 +46,19 @@
 
     <div th:each="campaign : ${campaigns}">
         <h2 th:text="${campaign.name}"></h2>
+        <div sec:authorize="hasAuthority ('ADMIN')">
+            <tr>
+                <td><a th:href="@{/delete/{id}(id=${campaign.campaignid})}">Muokkaa kampanjaa</a></td>
+                <td><a th:href="@{/delete/{id}(id=${campaign.campaignid})}">Poista kampanja</a></td>
+            </tr>
+        </div>
         <p th:text="${campaign.description}"></p>
 
         <h3 th:text="'Kampanjan hahmot'"></h3>
-
+        <ul style="list-style-type:none;">
+            <li th:each="cc : ${campaign.campaignCharacters}" th:text="${cc.character.name}"></li>
+            <li th:if="${#lists.isEmpty(campaign.campaignCharacters)}">Ei hahmoja</li>
+        </ul>
         <form th:action="@{/addCharacterToCampaign}" method="post">
             <input type="hidden" name="campaignid" th:value="${campaign.campaignid}" />
             <label for="charlist">Lisää hahmo</label>
@@ -61,48 +70,22 @@
             <input type="submit" value="Lisää" />
         </form>
 
-        <ul style="list-style-type:none;">
-            <li th:each="cc : ${campaign.campaignCharacters}" th:text="${cc.character.name}"></li>
-            <li th:if="${#lists.isEmpty(campaign.campaignCharacters)}">Ei hahmoja</li>
-        </ul>
-
-        <div sec:authorize="hasAuthority ('ADMIN')">
-            <tr>
-                <td><a th:href="@{/delete/{id}(id=${campaign.campaignid})}">Muokkaa kampanjaa</a></td>
-                <td><a th:href="@{/delete/{id}(id=${campaign.campaignid})}">Poista kampanja</a></td>
-            </tr>
+        <h3 th:text="'Kampanjassa tapahtunut'"></h3>
+        <p sec:authorize="hasAuthority ('ADMIN')">
+            <a th:href="@{/addsession(campaignid=${campaign.campaignid})}">Lisää uusi seikkailu</a>
+        </p>
+        <div th:each="gsession : ${gameSessions}">
+            <h4 th:text="${gsession.title}"></h4>
+            <p th:text="${gsession.content}"></p>
+            <div th:each="event : ${gsession.events}">
+                <h5 th:text="${event.title}"></h5>
+                <p th:text="${event.content}"></p>
+            </div>
         </div>
+
         <p th:text="${campaign.created_at}"></p>
         <p th:text="${campaign.owner.getUsername()}"></p>
     </div>
-    <h1 th:text="'Seikkailut'"></h1>
-    <table class="table table-striped">
-        <tr>
-            <th>Kampanja</th>
-            <th>Otsikko</th>
-            <th>Sisältö</th>
-            <th>Päivämäärä</th>
-        </tr>
-        <tr th:each="gsession : ${sessions}">
-            <td th:text="${gsession.campaign.getName()}"></td>
-            <td th:text="${gsession.title}"></td>
-            <td th:text="${gsession.content}"></td>
-            <td th:text="${gsession.session_date}"></td>
-        </tr>
-    </table>
-    <h1 th:text="'Tapahtumat'"></h1>
-    <table class="table table-striped">
-        <tr>
-            <th>Seikkailu</th>
-            <th>Tapahtuman järjestysnumero</th>
-            <th>Sisältö</th>
-        </tr>
-        <tr th:each="event : ${events}">
-            <td th:text="${event.session.title}"></td>
-            <td th:text="${event.orderIndex}"></td>
-            <td th:text="${event.content}"></td>
-        </tr>
-    </table>
 
 </body>
 

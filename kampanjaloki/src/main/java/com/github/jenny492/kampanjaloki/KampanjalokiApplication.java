@@ -60,20 +60,21 @@ public class KampanjalokiApplication {
                     testTimeNow, testTimeNow);
             sRepository.save(testSession1);
 
-            GameEvent testEvent1 = new GameEvent(testSession1);
-            GameEvent testEvent2 = new GameEvent(testSession1);
-            GameEvent testEvent3 = new GameEvent(testSession1);
+            GameEvent testEvent1 = new GameEvent(testSession1, "Ensimmäinen tapahtuma");
+            GameEvent testEvent2 = new GameEvent(testSession1, "Toinen tapahtuma");
+            GameEvent testEvent3 = new GameEvent(testSession1, "Kolmas tapahtuma");
+            GameEvent testEvent7 = new GameEvent(testSession1, "Neljäs tapahtuma");
             eRepository.save(testEvent1);
             eRepository.save(testEvent2);
             eRepository.save(testEvent3);
-
+            eRepository.save(testEvent7);
             GameSession testSession2 = new GameSession(testCampaign, "Testiseikkailu toka", "Tässä seikkailussa tapahtui",
                     testTimeNow, testTimeNow);
             sRepository.save(testSession2);
 
-            GameEvent testEvent4 = new GameEvent(testSession2);
-            GameEvent testEvent5 = new GameEvent(testSession2);
-            GameEvent testEvent6 = new GameEvent(testSession2);
+            GameEvent testEvent4 = new GameEvent(testSession2, "Ensimmäinen tapahtuma");
+            GameEvent testEvent5 = new GameEvent(testSession2, "Toinen tapahtuma");
+            GameEvent testEvent6 = new GameEvent(testSession2, "Kolmas tapahtuma");
             eRepository.save(testEvent4);
             eRepository.save(testEvent5);
             eRepository.save(testEvent6);

@@ -1,71 +1,44 @@
 package com.github.jenny492.kampanjaloki.web;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.github.jenny492.kampanjaloki.domain.GameSession;
-import com.github.jenny492.kampanjaloki.exception.NotFoundException;
 import com.github.jenny492.kampanjaloki.repository.GameSessionRepository;
+import com.github.jenny492.kampanjaloki.repository.CampaignRepository;
 
-import jakarta.validation.Valid;
+import org.springframework.ui.Model;
 
-@RestController
-@RequestMapping("/api/sessions")
+@Controller
 public class GameSessionController {
 
-    private GameSessionRepository repo;
+    private final GameSessionRepository repo;
+    private final CampaignRepository campaignRepo;
 
-    public GameSessionController(GameSessionRepository repo) {
+    public GameSessionController(GameSessionRepository repo, CampaignRepository campaignRepo) {
         this.repo = repo;
+        this.campaignRepo = campaignRepo;
     }
 
-    @GetMapping
-    public List<GameSession> getAllSessions() {
-        return (List<GameSession>) repo.findAll();
+    @GetMapping(value = { "/addsession" })
+    public String addSession(Model model, @RequestParam(name = "campaignid", required = false) Long campaignid) {
+        
+        return "addsession";
     }
 
-    @GetMapping("/{id}")
-    public GameSession getSessionById(@PathVariable Long id) {
-        return repo.findById(id)
-                .orElseThrow(() -> new NotFoundException("Session not found"));
+    @PostMapping(value = "/savesession")
+    public String saveSession(@ModelAttribute("session") GameSession session) {
+        LocalDateTime timeNow = LocalDateTime.now();
+        
+        session.setCreated_at(timeNow);
+        session.setUpdated_at(timeNow);
+        repo.save(session);
+        return "redirect:/dashboard";
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public GameSession createSession(@Valid @RequestBody GameSession session) {
-        return repo.save(session);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteSessionById(@PathVariable Long id) {
-        if (!repo.findById(id).isPresent()) {
-            throw new NotFoundException("Session not found");
-        }
-        repo.deleteById(id);
-    }
-
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public GameSession updateSession(@PathVariable Long id, @Valid @RequestBody GameSession updatedSession) {
-        return repo.findById(id)
-                .map(session -> {
-                    session.setTitle(updatedSession.getTitle());
-                    session.setContent(updatedSession.getContent());
-                    session.setSession_date(updatedSession.getSession_date());
-                    session.setUpdated_at(LocalDateTime.now());
-                    return repo.save(session);
-                })
-                .orElseThrow(() -> new NotFoundException("Session not found"));
-    }
 }

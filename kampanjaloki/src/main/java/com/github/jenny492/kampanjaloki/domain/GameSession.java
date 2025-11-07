@@ -33,7 +33,6 @@ public class GameSession {
     private String title;
     private String content;
 
-    @NotNull
     private LocalDateTime session_date;
 
     private LocalDateTime created_at;
