@@ -48,18 +48,25 @@
         <h2 th:text="${campaign.name}"></h2>
         <div sec:authorize="hasAuthority ('ADMIN')">
             <tr>
-                <td><a th:href="@{/delete/{id}(id=${campaign.campaignid})}">Muokkaa kampanjaa</a></td>
-                <td><a th:href="@{/delete/{id}(id=${campaign.campaignid})}">Poista kampanja</a></td>
+                <td><a th:href="@{/editcampaign/{id}(id=${campaign.campaignid})}">Muokkaa kampanjaa</a></td>
+                <td><a th:href="@{/deletecampaign/{id}(id=${campaign.campaignid})}">Poista kampanja</a></td>
             </tr>
         </div>
         <p th:text="${campaign.description}"></p>
 
         <h3 th:text="'Kampanjan hahmot'"></h3>
-        <ul style="list-style-type:none;">
-            <li th:each="cc : ${campaign.campaignCharacters}" th:text="${cc.character.name}"></li>
-            <li th:if="${#lists.isEmpty(campaign.campaignCharacters)}">Ei hahmoja</li>
-        </ul>
-        <form th:action="@{/addCharacterToCampaign}" method="post">
+
+        <table>
+            <tr th:each="cc : ${campaign.campaignCharacters}" >
+                <td th:text="${cc.character.name}"></td>
+                <td sec:authorize="hasAuthority ('ADMIN')"><a th:href="@{/removeCharacterFromCampaign/{id}(id=${cc.campaigncharacterid})}">Poista hahmo kampanjasta</a></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(campaign.campaignCharacters)}">
+                <td>Ei hahmoja</td>
+            </tr>
+        </table><br />
+        
+        <form sec:authorize="hasAuthority ('ADMIN')" th:action="@{/addCharacterToCampaign}" method="post">
             <input type="hidden" name="campaignid" th:value="${campaign.campaignid}" />
             <label for="charlist">Lisää hahmo</label>
             <select id="charlist" name="characterid">

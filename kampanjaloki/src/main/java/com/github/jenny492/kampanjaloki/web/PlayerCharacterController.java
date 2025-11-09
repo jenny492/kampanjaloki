@@ -1,7 +1,8 @@
 package com.github.jenny492.kampanjaloki.web;
 
 import org.springframework.stereotype.Controller;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -41,6 +42,12 @@ public class PlayerCharacterController {
 
         CampaignCharacter campaignCharacter = new CampaignCharacter(character, campaign);
         ccRepository.save(campaignCharacter);
+        return "redirect:/dashboard";
+    }
+
+    @GetMapping(value = "/removeCharacterFromCampaign/{id}")
+    public String deleteCharacterFromCampaign(@PathVariable("id") Long id) {
+        ccRepository.deleteById(id);
         return "redirect:/dashboard";
     }
 

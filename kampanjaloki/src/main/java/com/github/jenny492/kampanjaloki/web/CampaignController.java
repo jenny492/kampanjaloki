@@ -32,7 +32,7 @@ public class CampaignController {
         return "addcampaign";
     }
 
-    @PostMapping("/savecampaign")
+    @PostMapping(value = "/savecampaign")
     public String saveCampaign(Campaign campaign) {
         LocalDateTime timeNow = LocalDateTime.now();
         campaign.setCreated_at(timeNow);
@@ -46,7 +46,26 @@ public class CampaignController {
         return "redirect:/dashboard";
     }
 
-    @GetMapping(value = "/delete/{id}")
+    @PostMapping(value = "/saveEditedCampaign")
+    public String saveEditedCampaign(Campaign campaign) {
+        Campaign existing = cRepository.findById(campaign.getCampaignid()).orElse(null);
+            if (existing != null) {
+                existing.setName(campaign.getName());
+                existing.setDescription(campaign.getDescription());
+                existing.setImage_url(campaign.getImage_url());
+                cRepository.save(existing);
+            }
+        return "redirect:/dashboard";        
+    }
+
+    @GetMapping(value = "editcampaign/{id}")
+    public String editcampaign (@PathVariable("id") Long id, Model model) {
+        Campaign campaign = cRepository.findById(id).orElse(null);
+        model.addAttribute("campaign", campaign);
+        return "editcampaign";
+    }
+
+    @GetMapping(value = "/deletecampaign/{id}")
     public String deleteCampaign(@PathVariable("id") Long id) {
         cRepository.deleteById(id);
         return "redirect:/dashboard";

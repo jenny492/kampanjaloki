@@ -41,4 +41,6 @@ public class GameEventController {
         return "redirect:/dashboard";
     }
 
+    
+
 }
