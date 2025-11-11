@@ -6,6 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,29 +15,38 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "game_sessions")
 public class GameSession {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "session_id", nullable = false, updatable = false)
     private Long sessionid;
 
     @ManyToOne
-    @JoinColumn(name = "campaign")
+    @JoinColumn(name = "campaign_id")
     @NotNull
     private Campaign campaign;
 
     @NotBlank
+    @Column(name = "title", nullable = false)
     private String title;
+    @Column(name = "content")
     private String content;
 
-    private LocalDateTime session_date;
+    @Column(name = "session_date")
+    private LocalDateTime sessionDate;
 
-    private LocalDateTime created_at;
-    private LocalDateTime updated_at;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("orderIndex ASC")
@@ -52,8 +62,8 @@ public class GameSession {
         this.campaign = campaign;
         this.title = title;
         this.content = content;
-        this.session_date = session_date;
-        this.created_at = created_at;
+        this.sessionDate = session_date;
+        this.createdAt = created_at;
     }
 
     public Long getSessionid() {
@@ -88,28 +98,28 @@ public class GameSession {
         this.content = content;
     }
 
-    public LocalDateTime getSession_date() {
-        return session_date;
+    public LocalDateTime getSessionDate() {
+        return sessionDate;
     }
 
-    public void setSession_date(LocalDateTime session_date) {
-        this.session_date = session_date;
+    public void setSessionDate(LocalDateTime sessionDate) {
+        this.sessionDate = sessionDate;
     }
 
-    public LocalDateTime getCreated_at() {
-        return created_at;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(LocalDateTime created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdated_at() {
-        return updated_at;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at(LocalDateTime updated_at) {
-        this.updated_at = updated_at;
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public void addEvent(GameEvent e) {
@@ -128,8 +138,8 @@ public class GameSession {
 
     @Override
     public String toString() {
-        return "Session [id=" + sessionid + ", title=" + title + ", content=" + content + ", session_date="
-                + session_date
-                + ", created_at=" + created_at + ", updated_at=" + updated_at + "]";
+        return "Session [id=" + sessionid + ", title=" + title + ", content=" + content + ", sessionDate="
+                + sessionDate
+                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
     }
 }

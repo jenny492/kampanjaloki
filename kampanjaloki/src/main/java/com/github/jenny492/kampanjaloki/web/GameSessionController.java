@@ -39,8 +39,8 @@ public class GameSessionController {
         .orElseThrow(() -> new NotFoundException("Campaign not found")));
 
         LocalDateTime timeNow = LocalDateTime.now();
-        session.setCreated_at(timeNow);
-        session.setUpdated_at(timeNow);
+        session.setCreatedAt(timeNow);
+        session.setUpdatedAt(timeNow);
         
         repository.save(session);
         

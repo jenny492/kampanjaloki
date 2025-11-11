@@ -61,7 +61,7 @@ public class CampaignRestController {
                 .map(campaign -> {
                     campaign.setName(updatedCampaign.getName());
                     campaign.setDescription(updatedCampaign.getDescription());
-                    campaign.setImage_url(updatedCampaign.getImage_url());
+                    campaign.setImageUrl(updatedCampaign.getImageUrl());
                     campaign.setOwner(updatedCampaign.getOwner());
                     return repo.save(campaign);
                 })

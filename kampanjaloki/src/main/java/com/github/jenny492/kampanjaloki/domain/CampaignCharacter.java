@@ -1,5 +1,6 @@
 package com.github.jenny492.kampanjaloki.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,12 +13,13 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 // Makes sure that table contains only unique character and campaign pairs
-@Table(uniqueConstraints = 
+@Table(name = "campaign_characters", uniqueConstraints = 
 {@UniqueConstraint(columnNames = {"character_id", "campaign_id"})})
 public class CampaignCharacter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "campaign_character_id", nullable = false, updatable = false)
     private Long campaigncharacterid;
 
     @ManyToOne

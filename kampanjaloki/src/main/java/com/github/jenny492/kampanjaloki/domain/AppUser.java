@@ -10,28 +10,30 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-// @Table(name = "app_users")
+@Table(name = "app_users")
 public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    // @Column(name = "user_id", nullable = false, updatable = false)
+    @Column(name = "user_id", nullable = false, updatable = false)
     private Long userid;
 
     @NotBlank(message = "Username is mandatory")
-    // @Column(name = "username", nullable = false, unique = true)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @NotBlank(message = "Password is mandatory")
-    // @Column(name = "password_hash", nullable = false)
+    @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
     @NotNull(message = "Time created missing")
-    private LocalDateTime created_at;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
     @NotBlank(message = "User role missing")
-    private String userrole;
+    @Column(name = "user_role", nullable = false)
+    private String userRole;
 
     @JsonIgnore
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -51,8 +53,8 @@ public class AppUser {
     public AppUser(String username, String passwordHash, LocalDateTime created_at, String userrole) {
         this.username = username;
         this.passwordHash = passwordHash;
-        this.created_at = created_at;
-        this.userrole = userrole;
+        this.createdAt = created_at;
+        this.userRole = userrole;
     }
 
     public Long getUserid() {
@@ -80,19 +82,19 @@ public class AppUser {
     }
 
     public LocalDateTime getCreated_at() {
-        return created_at;
+        return createdAt;
     }
 
     public void setCreated_at(LocalDateTime created_at) {
-        this.created_at = created_at;
+        this.createdAt = created_at;
     }
 
-    public String getUserrole() {
-        return userrole;
+    public String getUserRole() {
+        return userRole;
     }
 
-    public void setUserrole(String userrole) {
-        this.userrole = userrole;
+    public void setUserRole(String userrole) {
+        this.userRole = userrole;
     }
 
     public List<Campaign> getOwnedCampaigns() {
@@ -114,7 +116,7 @@ public class AppUser {
     @Override
     public String toString() {
         return "AppUser [id=" + userid + ", username=" + username + ", passwordHash=" + passwordHash + ", created_at="
-                + created_at + ", userrole=" + userrole + ", ownedCampaigns="
+                + createdAt + ", userrole=" + userRole + ", ownedCampaigns="
                 + ownedCampaigns + ", campaignMembers=" + campaignMembers + "]";
     }
 

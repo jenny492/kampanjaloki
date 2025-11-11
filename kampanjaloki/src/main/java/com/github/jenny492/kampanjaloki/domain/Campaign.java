@@ -6,32 +6,42 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "campaigns")
 public class Campaign {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "campaign_id")
     private Long campaignid;
 
     @NotBlank(message = "Campaign name is mandatory")
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "description")
     private String description;
-    private String image_url;
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @NotNull(message = "Campaign create time is mandatory")
-    private LocalDateTime created_at;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     @ManyToOne
+    @JoinColumn(name = "owner_id")
     private AppUser owner;
 
     @JsonIgnore
@@ -52,8 +62,8 @@ public class Campaign {
     public Campaign(String name, String description, String image_url, LocalDateTime created_at, AppUser owner) {
         this.name = name;
         this.description = description;
-        this.image_url = image_url;
-        this.created_at = created_at;
+        this.imageUrl = image_url;
+        this.createdAt = created_at;
         this.owner = owner;
     }
 
@@ -81,20 +91,20 @@ public class Campaign {
         this.description = description;
     }
 
-    public String getImage_url() {
-        return image_url;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setImageUrl(String image_url) {
+        this.imageUrl = image_url;
     }
 
-    public LocalDateTime getCreated_at() {
-        return created_at;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(LocalDateTime created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(LocalDateTime created_at) {
+        this.createdAt = created_at;
     }
 
     public Long getCampaignid() {
@@ -132,8 +142,8 @@ public class Campaign {
     @Override
     public String toString() {
         return "Campaign [id=" + campaignid + ", name=" + name + ", description=" + description + ", image_url="
-                + image_url
-                + ", created_at=" + created_at + ", owner=" + owner + ", sessions=" + sessions + ", campaignCharacters="
+                + imageUrl
+                + ", created_at=" + createdAt + ", owner=" + owner + ", sessions=" + sessions + ", campaignCharacters="
                 + campaignCharacters + "]";
     }
 

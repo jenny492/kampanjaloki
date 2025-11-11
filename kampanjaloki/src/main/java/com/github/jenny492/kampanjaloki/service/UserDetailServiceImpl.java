@@ -12,19 +12,19 @@ import com.github.jenny492.kampanjaloki.repository.AppUserRepository;
 // Retrieves username, password and userrole for authentication
 
 @Service
-public class UserDetailServiceImpl implements UserDetailsService  {
-	
+public class UserDetailServiceImpl implements UserDetailsService {
+
 	AppUserRepository repository;
-	
+
 	public UserDetailServiceImpl(AppUserRepository appUserRepository) {
-		this.repository = appUserRepository; 
+		this.repository = appUserRepository;
 	}
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {   
-    	AppUser curruser = repository.findByUsername(username);
-        UserDetails user = new org.springframework.security.core.userdetails.User(username, curruser.getPasswordHash(), 
-        		AuthorityUtils.createAuthorityList(curruser.getUserrole()));
-        return user;
-    }   
-} 
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		AppUser curruser = repository.findByUsername(username);
+		UserDetails user = new org.springframework.security.core.userdetails.User(username, curruser.getPasswordHash(),
+				AuthorityUtils.createAuthorityList(curruser.getUserRole()));
+		return user;
+	}
+}

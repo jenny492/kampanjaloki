@@ -4,27 +4,37 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "player_characters")
 public class PlayerCharacter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "character_id", nullable = false, updatable = false)
     private Long characterid;
 
     @NotBlank(message = "Character must have a name")
+    @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "description")
     private String description;
-    private String image_url;
+
+    @Column(name = "image_url")
+    private String imageUrl;
+    
+    @Column(name = "link")
     private String link;
 
     @ManyToOne
@@ -68,12 +78,12 @@ public class PlayerCharacter {
         this.description = description;
     }
 
-    public String getImage_url() {
-        return image_url;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getLink() {
@@ -95,7 +105,7 @@ public class PlayerCharacter {
     @Override
     public String toString() {
         return "Character [characterid=" + characterid + ", name=" + name + ", description=" + description
-                + ", image_url=" + image_url + ", link=" + link + "]";
+                + ", imageUrl=" + imageUrl + ", link=" + link + "]";
     }
 
 }

@@ -35,7 +35,7 @@ public class CampaignController {
     @PostMapping(value = "/savecampaign")
     public String saveCampaign(Campaign campaign) {
         LocalDateTime timeNow = LocalDateTime.now();
-        campaign.setCreated_at(timeNow);
+        campaign.setCreatedAt(timeNow);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currUserName = auth.getName();
@@ -49,17 +49,17 @@ public class CampaignController {
     @PostMapping(value = "/saveEditedCampaign")
     public String saveEditedCampaign(Campaign campaign) {
         Campaign existing = cRepository.findById(campaign.getCampaignid()).orElse(null);
-            if (existing != null) {
-                existing.setName(campaign.getName());
-                existing.setDescription(campaign.getDescription());
-                existing.setImage_url(campaign.getImage_url());
-                cRepository.save(existing);
-            }
-        return "redirect:/dashboard";        
+        if (existing != null) {
+            existing.setName(campaign.getName());
+            existing.setDescription(campaign.getDescription());
+            existing.setImageUrl(campaign.getImageUrl());
+            cRepository.save(existing);
+        }
+        return "redirect:/dashboard";
     }
 
     @GetMapping(value = "editcampaign/{id}")
-    public String editcampaign (@PathVariable("id") Long id, Model model) {
+    public String editcampaign(@PathVariable("id") Long id, Model model) {
         Campaign campaign = cRepository.findById(id).orElse(null);
         model.addAttribute("campaign", campaign);
         return "editcampaign";

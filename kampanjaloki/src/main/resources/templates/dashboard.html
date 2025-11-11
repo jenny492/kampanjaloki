@@ -22,7 +22,7 @@
         </tr>
         <tr th:each="user : ${users}">
             <td th:text="${user.username}"></td>
-            <td th:text="${user.userrole}"></td>
+            <td th:text="${user.userRole}"></td>
         </tr>
     </table>
     <h1 th:text="'Hahmot'"></h1>
@@ -96,7 +96,7 @@
             </div>
         </div>
 
-        <p th:text="${campaign.created_at}"></p>
+        <p th:text="${campaign.createdAt}"></p>
         <p th:text="${campaign.owner.getUsername()}"></p>
     </div>
 

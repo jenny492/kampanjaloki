@@ -62,7 +62,7 @@ public class PlayerCharacterRestController {
                 .map(character -> {
                     character.setName(updatedCharacter.getName());
                     character.setDescription(updatedCharacter.getDescription());
-                    character.setImage_url(updatedCharacter.getImage_url());
+                    character.setImageUrl(updatedCharacter.getImageUrl());
                     character.setLink(updatedCharacter.getLink());
                     character.setOwner(updatedCharacter.getOwner());
                     return repo.save(character);

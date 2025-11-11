@@ -69,7 +69,7 @@ public class AppUserController {
                 .map(user -> {
                     user.setUsername(updatedUser.getUsername());
                     user.setPasswordHash(updatedUser.getPasswordHash());
-                    user.setUserrole(updatedUser.getUserrole());
+                    user.setUserRole(updatedUser.getUserRole());
                     return repo.save(user);
                 })
                 .orElseThrow(() -> new NotFoundException("User not found"));

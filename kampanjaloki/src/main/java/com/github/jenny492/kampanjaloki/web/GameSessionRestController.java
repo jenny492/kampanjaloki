@@ -62,8 +62,8 @@ public class GameSessionRestController {
                 .map(session -> {
                     session.setTitle(updatedSession.getTitle());
                     session.setContent(updatedSession.getContent());
-                    session.setSession_date(updatedSession.getSession_date());
-                    session.setUpdated_at(LocalDateTime.now());
+                    session.setSessionDate(updatedSession.getSessionDate());
+                    session.setUpdatedAt(LocalDateTime.now());
                     return repo.save(session);
                 })
                 .orElseThrow(() -> new NotFoundException("Session not found"));

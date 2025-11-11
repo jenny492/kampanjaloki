@@ -1,5 +1,6 @@
 package com.github.jenny492.kampanjaloki.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,12 +12,13 @@ import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(uniqueConstraints = 
+@Table(name = "campaign_members", uniqueConstraints = 
 {@UniqueConstraint(columnNames = {"user_id", "campaign_id"})})
 public class CampaignMember {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "campaign_member_id", nullable = false, updatable = false)
     private Long campaignmemberid;
 
     @ManyToOne
