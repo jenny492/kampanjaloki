@@ -47,7 +47,7 @@ Käyttäjäroolit määritellään users-taulussa. Käyttäjärooleja ovat user-
 
 ## Tietokanta
 
-`users`
+`app_users`
 - user_id (PK)
 - username (TEXT, UNIQUE) 
 - password_hash (TEXT NOT NULL)
@@ -73,7 +73,7 @@ Käyttäjäroolit määritellään users-taulussa. Käyttäjärooleja ovat user-
 - character_id (FK -> characters.character_id)
 - campaign_id (FK -> campaigns.campaign_id)
 
-`characters`
+`player_characters`
 - character_id (PK)
 - name (TEXT)
 - description (TEXT)

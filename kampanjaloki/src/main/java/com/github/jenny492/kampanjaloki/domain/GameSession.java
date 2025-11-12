@@ -20,7 +20,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "game_sessions")
+@Table(name = "sessions")
 public class GameSession {
 
     @Id
@@ -36,6 +36,7 @@ public class GameSession {
     @NotBlank
     @Column(name = "title", nullable = false)
     private String title;
+    
     @Column(name = "content")
     private String content;
 

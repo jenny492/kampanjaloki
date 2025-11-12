@@ -29,7 +29,7 @@ public class KampanjalokiApplication {
         SpringApplication.run(KampanjalokiApplication.class, args);
     }
 
-    @Bean
+   /*  @Bean
     public CommandLineRunner demo(CampaignRepository cRepository, 
             AppUserRepository uRepository,
             GameSessionRepository sRepository,
@@ -91,8 +91,8 @@ public class KampanjalokiApplication {
             cCharRepository.save(campaignCharacter1);
             cCharRepository.save(campaignCharacter2);
 
-
+ 
         };
     }
-
+*/
 }

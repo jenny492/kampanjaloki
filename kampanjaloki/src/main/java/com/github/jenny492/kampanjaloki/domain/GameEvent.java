@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "game_events")
+@Table(name = "events")
 public class GameEvent {
 
     @Id
