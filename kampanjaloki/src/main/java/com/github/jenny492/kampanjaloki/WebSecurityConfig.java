@@ -21,7 +21,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/", "/login", "/api/**", "/index").permitAll()
+                .requestMatchers("/", "/login", "/index").permitAll()
                 .anyRequest().authenticated())
                 .formLogin(formlogin -> formlogin
                         .defaultSuccessUrl("/", true)
