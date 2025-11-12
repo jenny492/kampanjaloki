@@ -6,4 +6,6 @@ import com.github.jenny492.kampanjaloki.domain.AppUser;
 
 public interface AppUserRepository extends CrudRepository<AppUser, Long> {
     AppUser findByUsername(String username);
+
+    boolean existsByUsername(String username);
 }
