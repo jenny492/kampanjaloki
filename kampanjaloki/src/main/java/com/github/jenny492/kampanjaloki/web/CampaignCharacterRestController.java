@@ -25,13 +25,13 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/campaigncharacters")
-public class CampaignCharacterController {
+public class CampaignCharacterRestController {
 
     private CampaignCharacterRepository repo;
     private CampaignRepository cRepo;
     private PlayerCharacterRepository charRepo;
 
-    public CampaignCharacterController(CampaignCharacterRepository repo, CampaignRepository cRepo,
+    public CampaignCharacterRestController(CampaignCharacterRepository repo, CampaignRepository cRepo,
             PlayerCharacterRepository charRepo) {
         this.repo = repo;
         this.cRepo = cRepo;
@@ -49,7 +49,6 @@ public class CampaignCharacterController {
                 .orElseThrow(() -> new NotFoundException("Campaign character not found"));
     }
 
-    // TODO: tarvitseeko tähän tarkistuksen, että onko hahmo jo olemassa kampanjassa
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CampaignCharacter createCampaignCharacter(@Valid @RequestBody CampaignCharacter campaignCharacter) {
