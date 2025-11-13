@@ -11,6 +11,7 @@
     <h1>Muokkaa kampanjaa</h1>
 
     <div>
+        <a th:href="@{/uploadfile(campaignid=${campaign.campaignid})}">Lataa kuva</a>
         <form th:object="${campaign}" th:action="@{../saveEditedCampaign}" action="#" method="post">
 
             <input type="hidden" id="campaignid" th:field="*{campaignid}" readonly />

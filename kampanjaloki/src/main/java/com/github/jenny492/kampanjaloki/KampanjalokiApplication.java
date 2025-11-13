@@ -5,8 +5,11 @@ import java.time.LocalDateTime;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
+import com.github.jenny492.kampanjaloki.Storage.StorageProperties;
+import com.github.jenny492.kampanjaloki.Storage.StorageService;
 import com.github.jenny492.kampanjaloki.domain.AppUser;
 import com.github.jenny492.kampanjaloki.domain.Campaign;
 import com.github.jenny492.kampanjaloki.domain.CampaignCharacter;
@@ -23,6 +26,7 @@ import com.github.jenny492.kampanjaloki.repository.GameSessionRepository;
 import com.github.jenny492.kampanjaloki.repository.PlayerCharacterRepository;
 
 @SpringBootApplication
+@EnableConfigurationProperties(StorageProperties.class)
 public class KampanjalokiApplication {
 
     public static void main(String[] args) {
@@ -94,5 +98,15 @@ public class KampanjalokiApplication {
  
         };
     }
+<<<<<<< Updated upstream
 */
+=======
+
+    @Bean
+    public CommandLineRunner initStorage(StorageService storageService) {
+        return (args) -> {
+            storageService.init();
+        };
+    }
+>>>>>>> Stashed changes
 }

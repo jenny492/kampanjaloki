@@ -46,6 +46,7 @@
 
     <div th:each="campaign : ${campaigns}">
         <h2 th:text="${campaign.name}"></h2>
+        <img th:src="@{/uploads/${campaign.imageUrl}}" width="200" height="200"/>
         <div sec:authorize="hasAuthority ('ADMIN')">
             <tr>
                 <td><a th:href="@{/editcampaign/{id}(id=${campaign.campaignid})}">Muokkaa kampanjaa</a></td>
