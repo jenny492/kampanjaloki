@@ -1,5 +1,8 @@
 package com.github.jenny492.kampanjaloki.domain;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,8 +26,9 @@ public class CampaignCharacter {
     private Long campaigncharacterid;
 
     @ManyToOne
-    @JoinColumn(name = "character_id")
-    @NotNull(message = "")
+    @JoinColumn(name = "character_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
     private PlayerCharacter character;
 
     @ManyToOne

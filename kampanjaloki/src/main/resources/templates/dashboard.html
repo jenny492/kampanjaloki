@@ -13,8 +13,10 @@
         <h1>Hallintapaneeli</h1>
         <p><a th:href="@{/}">Pääsivu</a></p>
     </header>
-    <h1 th:text="'Käyttäjät'" sec:authorize="hasAuthority ('ADMIN')"></h1>
+   
+    <hr style="width:40%;margin-left: 0;" />
 
+    <h1 th:text="'Käyttäjät'" sec:authorize="hasAuthority ('ADMIN')"></h1>
     <table sec:authorize="hasAuthority ('ADMIN')" class="table table-striped">
         <tr>
             <th>Nimi</th>
@@ -25,6 +27,9 @@
             <td th:text="${user.userRole}"></td>
         </tr>
     </table>
+    
+    <hr style="width:40%;margin-left: 0;" />
+
     <h1 th:text="'Hahmot'"></h1>
     <table class="table table-striped">
         <tr>
@@ -41,8 +46,12 @@
         </tr>
     </table>
 
+    <hr style="width:40%;margin-left: 0;" />
+
     <h1 th:text="'Kampanjat'"></h1>
     <p sec:authorize="hasAuthority ('ADMIN')"><a th:href="@{/addcampaign}">Luo uusi kampanja</a></p>
+
+    <hr style="width:40%;margin-left: 0;" />
 
     <div th:each="campaign : ${campaigns}">
         <h2 th:text="${campaign.name}"></h2>
@@ -99,6 +108,8 @@
 
         <p th:text="${campaign.createdAt}"></p>
         <p th:text="${campaign.owner.getUsername()}"></p>
+        
+    <hr style="width:40%;margin-left: 0;" />
     </div>
 
 </body>

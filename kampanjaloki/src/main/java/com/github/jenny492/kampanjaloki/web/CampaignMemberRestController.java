@@ -21,11 +21,11 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/campaignmembers")
-public class CampaignMemberController {
+public class CampaignMemberRestController {
 
     private CampaignMemberRepository repo;
 
-    public CampaignMemberController(CampaignMemberRepository repo) {
+    public CampaignMemberRestController(CampaignMemberRepository repo) {
         this.repo = repo;
     }
 
@@ -54,8 +54,6 @@ public class CampaignMemberController {
         repo.deleteById(id);
     }
 
-    // TODO Pitää tehdä tarkistus sille, että ei tule tehtyä tuplataulua samoilla
-    // tiedoilla
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public CampaignMember updateCampaignMember(@PathVariable Long id,

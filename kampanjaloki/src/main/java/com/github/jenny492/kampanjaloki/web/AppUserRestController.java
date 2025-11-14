@@ -24,12 +24,12 @@ import com.github.jenny492.kampanjaloki.repository.CampaignRepository;
 
 @RestController
 @RequestMapping("/api/users")
-public class AppUserController {
+public class AppUserRestController {
 
     private AppUserRepository repo;
     private CampaignRepository cRepo;
 
-    public AppUserController(AppUserRepository repo, CampaignRepository cRepo) {
+    public AppUserRestController(AppUserRepository repo, CampaignRepository cRepo) {
         this.repo = repo;
         this.cRepo = cRepo;
     }
