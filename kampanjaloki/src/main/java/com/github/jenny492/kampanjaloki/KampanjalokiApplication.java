@@ -98,9 +98,7 @@ public class KampanjalokiApplication {
  
         };
     }
-<<<<<<< Updated upstream
 */
-=======
 
     @Bean
     public CommandLineRunner initStorage(StorageService storageService) {
@@ -108,5 +106,4 @@ public class KampanjalokiApplication {
             storageService.init();
         };
     }
->>>>>>> Stashed changes
 }

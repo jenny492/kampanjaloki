@@ -1,7 +1,11 @@
 import './App.css'
-import CampaignForm from './components/CampaignForm'
-import CampaignList from './components/CampaignList'
-import CampaignSearch from './components/CampaignSearch'
+import { BrowserRouter, Route, Routes } from 'react-router';
+import CampaignForm from './features/campaigns/CampaignForm'
+import CampaignList from './features/campaigns/CampaignList'
+import CampaignSearch from './features/campaigns/CampaignSearch'
+import Frontpage from './components/Frontpage'
+import Menu from './components/Menu'
+import Error from './components/Error'
 
 const campaigns = [
   {
@@ -30,7 +34,22 @@ const campaigns = [
 function App() {
 
   return (
-    <>
+   <BrowserRouter>
+
+      <Routes>
+        <Route path='/' element={<Menu />} >
+          <Route index element={<Frontpage />} />
+          <Route path='/campaignform' element={<CampaignForm />} />
+          <Route path='/campaigns' element={<CampaignList campaigns={campaigns} />} />
+          <Route path='/search' element={<CampaignSearch campaigns={campaigns} />} />
+          
+          <Route path='/error' element={<Error />} />
+          <Route path='*' element={<Error virheviesti='Kyseistä sivua ei ole' />} /> 
+        </Route>
+      </Routes>
+    </BrowserRouter>
+   
+    /*  <>
       <div>
         <img src="dndrulebook.svg" className="logo"></img>
         <h1>Kampanjaloki</h1>
@@ -45,8 +64,8 @@ function App() {
       <div>
         <CampaignSearch campaigns={campaigns} />
       </div>
-    </>
+    </> */
   )
 }
 
-export default App
+export default App;
