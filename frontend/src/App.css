@@ -17,3 +17,14 @@
   filter:
     drop-shadow(0 0 1em #ff1ba8) drop-shadow(0 0 2em #ff1ba8) drop-shadow(0 0 3em #ff1ba8);
 }
+
+.maincontent {
+  margin-top: 64px;
+}
+
+@media (min-width: 600px) {
+  .maincontent {
+    margin-left: 0px;
+    margin-top: 128px;
+  }
+}
