@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Box, Button, Container, InputLabel, Paper, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, InputLabel, TextField, Typography } from '@mui/material';
 import AttachmentIcon from '@mui/icons-material/Attachment';
 import CreateIcon from '@mui/icons-material/Create';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { createCampaign } from './Campaigns';
 
 
 function CampaignForm() {
@@ -29,17 +30,29 @@ function CampaignForm() {
     setMsg('');
   }
 
-  const addCampaign = () => {
+  const addCampaign = async () => {
     if (!campaign.name || !campaign.description) {
       setMsg('Täytä pakolliset kentät');
       return;
     }
-    setValues({
-      name: '',
-      description: '',
-      imageUrl: ''
-    });
-    setMsg("Kampanja lisätty")
+    const formData = new FormData();
+
+    formData.append('name', campaign.name);
+    formData.append('description', campaign.description);
+    formData.append('imageUrl', campaign.imageUrl);
+
+    try {
+      const response = await createCampaign(formData);
+
+      if (response.status === 200) {
+        navigate('/campaigns/');
+      }
+      else {
+        navigate('/error', { state: { ErrorMsg: 'Lisäys ei onnistunut' } });
+      }
+    } catch (error) {
+      navigate('/error', { state: { ErrorMsg: 'Lisäys ei onnistunut' } });
+    }
   }
 
   const changeImage = (e) => {

@@ -9,6 +9,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import fi from 'date-fns/locale/fi';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
+import { createSession } from './Sessions';
+
 function SessionForm() {
 
     let { id } = useParams();
@@ -34,7 +36,28 @@ function SessionForm() {
         setMsg('');
     }
 
-    const addSession = () => {
+    const addSession = async () => {
+        const data = {
+            campaignid: id,
+            title: session.title,
+            content: session.content,
+            session_date: session.session_date
+        };
+
+        try {
+            const response = await createSession(data);
+
+            if (response.status === 200) {
+                navigate('/campaign/' + id); // ohjataan selain eteenpäin, jos lisäys onnistui
+            }
+            else {
+                // Virheiden käsittely
+                navigate('/error', { state: { message: 'Lisäys ei onnistunut' } });
+            }
+        } catch (error) {
+            navigate('/error', { state: { message: 'Lisäys ei onnistunut' } });
+        }
+
         if (!session.content) {
             setMsg('Täytä pakolliset kentät');
             return;
@@ -44,7 +67,6 @@ function SessionForm() {
             content: '',
             session_date: ''
         });
-        setMsg("Seikkailu lisätty")
     }
 
     const changeDate = (e) => {

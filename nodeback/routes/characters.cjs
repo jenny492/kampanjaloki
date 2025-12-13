@@ -1,16 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../connection.cjs');
+const { getAllCharacters, getCharacterById, createCharacter, updateCharacter, deleteCharacter } = require('../controllers/characterController.js');
+const multer = require('multer');
 
-
-router.get('/all', (req, res) => {
-  db.all('SELECT * FROM characters', (err, rows) => {
-    if (err) return res.status(500).json({ message: err.message });
-    res.json(rows);
-  });
+const storage = multer.diskStorage({
+    destination: (req, file, callback) => {
+        callback(null, '../frontend/public/characters'); // Mihin kansioon ladataan
+    },
+    filename: (req, file, callback) => {
+        callback(null, file.originalname);  // Millä tiedostonimellä
+    }
 });
 
-// Lisää muita reittejä tänne...
+const upload = multer({ storage: storage })
 
-// TÄRKEÄ!!!
+router.get('/', getAllCharacters);
+router.get('/:id', getCharacterById);
+router.post('/', upload.single('imageUrl'), createCharacter);
+router.put('/:id', upload.single('imageUrl'), updateCharacter);
+router.delete('/:id', deleteCharacter);
+
 module.exports = router;

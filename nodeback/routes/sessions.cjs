@@ -1,16 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../connection.cjs');
+const { getAllSessions, getSessionById, createSession, deleteSession } = require('../controllers/sessionController.js');
 
+router.get('/', getAllSessions);
+router.get('/:id', getSessionById);
+router.post('/', createSession);
+// router.put('/:id', updateSession);
+router.delete('/:id', deleteSession);
 
-router.get('/all', (req, res) => {
-  db.all('SELECT * FROM sessions', (err, rows) => {
-    if (err) return res.status(500).json({ message: err.message });
-    res.json(rows);
-  });
-});
-
-// Lisää muita reittejä tänne...
-
-// TÄRKEÄ!!!
 module.exports = router;

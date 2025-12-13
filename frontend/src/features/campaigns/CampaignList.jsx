@@ -1,9 +1,38 @@
 import AddIcon from '@mui/icons-material/Add';
 import { Box, Button, Grid, Typography } from '@mui/material';
-import { Link } from 'react-router';
+import { useEffect, useState } from 'react';
+import { getCampaigns } from './Campaigns';
+import { Link, useNavigate } from 'react-router';
 import CampaignCard from './CampaignCard';
 
-function CampaignList({ campaigns }) {
+function CampaignList() {
+
+    const navigate = useNavigate(); 
+
+    const [campaigns, setCampaigns] = useState([]);
+
+    const getAllCampaigns = async () => { 
+        try {
+            const response = await getCampaigns();
+            if (response.status === 200) {
+                setCampaigns(response.data);
+            } else {
+                navigate('/virhe', {
+                    state: { viesti: 'Listaus ei onnistunut' }
+                })
+            }
+        } catch (error) {
+            navigate('/virhe', {
+                state: { viesti: 'Listaus ei onnistunut' }
+            })
+        }
+    };
+
+    useEffect(() => { getAllCampaigns() }, []);
+
+    if (campaigns.length == 0) {
+        return (<Typography>Haetaan</Typography>)
+    };
 
     return (
 
@@ -24,7 +53,7 @@ function CampaignList({ campaigns }) {
                 {
                     campaigns.map(campaign => {
                         return (
-                            <Grid key={campaign.campaignid} xs={3} sm={4} md={4}>
+                            <Grid key={campaign.id} xs={3} sm={4} md={4}>
                                 <CampaignCard campaign={campaign} />
                             </Grid>
                         )

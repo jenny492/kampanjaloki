@@ -14,8 +14,10 @@ import SessionForm from './features/sessions/SessionForm';
 import EventForm from './features/events/EventForm';
 import CampaignEditForm from './features/campaigns/CampaignEditForm';
 import Dashboard from './features/dashboard/Dashboard';
+import CharacterForm from './features/characters/CharacterForm';
+import CharacterEditForm from './features/characters/CharacterEditForm';
 
-const campaigns = [
+/* const campaigns = [
   {
     campaignid: 1,
     name: 'Beneath the black rose, tosi pitkä nimi, joka ei mahdu',
@@ -172,7 +174,7 @@ const events = [
     content: 'Yhtäkkiä luolaston vartija herää henkiin ja hyökkää pelaajien kimppuun. Pelaajat taistelevat ja onnistuvat voittamaan vartijan.',
     details: 'Jotakin lisätietoa'
   }
-]
+] */
 
 
 const theme = createTheme({
@@ -201,14 +203,16 @@ function App() {
         <Route path='/' element={<AppBarMenu />} >
           <Route index element={<Frontpage />} />
           <Route path='/campaignform' element={<CampaignForm />} />
-          <Route path='/campaigns' element={<CampaignList campaigns={campaigns} />} />
-          <Route path='/search' element={<CampaignSearch campaigns={campaigns} />} />
-          <Route path='/characters' element={<CharacterList characters={characters} />} />
-          <Route path='/campaign/:id' element={<CampaignDetail campaigns={campaigns} sessions={sessions} events={events} />} />
+          <Route path='/campaigns' element={<CampaignList />} />
+          <Route path='/search' element={<CampaignSearch />} />
+          <Route path='/characters' element={<CharacterList />} />
+          <Route path='/campaign/:id' element={<CampaignDetail />} />
           <Route path='/session/:id' element={<SessionForm />} />
           <Route path='/event/:id' element={<EventForm />} />
-          <Route path='/campaignedit/:id' element={<CampaignEditForm campaigns={campaigns} />} />
+          <Route path='/campaignedit/:id' element={<CampaignEditForm />} />
           <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/characterform' element={<CharacterForm />} />
+          <Route path='/characteredit/:id' element={<CharacterEditForm />} />
 
           <Route path='/error' element={<Error />} />
           <Route path='*' element={<Error ErrorMsg='Kyseistä sivua ei ole' />} />

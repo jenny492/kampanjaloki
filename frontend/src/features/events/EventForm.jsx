@@ -3,6 +3,7 @@ import CreateIcon from '@mui/icons-material/Create';
 import { Box, Button, Container, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
+import { createEvent } from './Events';
 
 
 function EventForm() {
@@ -27,8 +28,28 @@ function EventForm() {
         setMsg('');
     };
 
+    const addEvent = async () => {
+        const data = {
+            sessionid: id,
+            title: event.title,
+            content: event.content,
+        };
 
-    const addEvent = () => {
+        try {
+            const response = await createEvent(data);
+
+            if (response.status === 200) {
+                navigate('/campaign/' + id); // ohjataan selain eteenpäin, jos lisäys onnistui
+            }
+            else {
+                // Virheiden käsittely
+                navigate('/error', { state: { errorMsg: 'Lisäys ei onnistunut' } });
+            }
+        } catch (error) {
+            navigate('/error', { state: { ErrorMsg: 'Lisäys ei onnistunut' } });
+        }
+
+
         if (!event.content) {
             setMsg('Täytä pakolliset kentät');
             return;

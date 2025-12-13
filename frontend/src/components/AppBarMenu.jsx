@@ -1,7 +1,7 @@
 // https://mui.com/material-ui/react-app-bar/#app-bar-with-responsive-menu
 
 import MenuIcon from '@mui/icons-material/Menu';
-import { AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Typography, } from '@mui/material';
+import { AppBar, Box, Button, IconButton, Menu, MenuItem, Toolbar, Typography, } from '@mui/material';
 import { useState } from 'react';
 import { Link, Outlet } from 'react-router';
 
@@ -11,7 +11,7 @@ const pages = [
   { label: 'Kampanjat', path: '/campaigns' },
   { label: 'Hahmot', path: '/characters' },
   { label: 'Haku', path: '/search' },
-  { label: 'Hallintapaneeli', path: '/dashboard' },
+//  { label: 'Hallintapaneeli', path: '/dashboard' },
 ];
 
 function AppBarMenu() {
