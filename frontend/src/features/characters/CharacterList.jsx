@@ -18,12 +18,12 @@ function CharacterList() {
             if (response.status === 200) {
                 setCharacters(response.data);
             } else {
-                navigate('/virhe', {
+                navigate('/error', {
                     state: { viesti: 'Listaus ei onnistunut' }
                 })
             }
         } catch (error) {
-            navigate('/virhe', {
+            navigate('/error', {
                 state: { viesti: 'Listaus ei onnistunut' }
             })
         }

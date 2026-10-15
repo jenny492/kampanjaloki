@@ -2,7 +2,8 @@ import { Box, Typography } from '@mui/material';
 
 function Error({ ErrorMsg }) {
 
-    const { message = ErrorMsg } = location.state || {};
+    const state = location.state || {};
+    const message = state.message || state.viesti || state.errorMsg || ErrorMsg;
 
     return (
         <Box className="maincontent">

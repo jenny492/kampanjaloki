@@ -17,12 +17,12 @@ function CampaignList() {
             if (response.status === 200) {
                 setCampaigns(response.data);
             } else {
-                navigate('/virhe', {
+                navigate('/error', {
                     state: { viesti: 'Listaus ei onnistunut' }
                 })
             }
         } catch (error) {
-            navigate('/virhe', {
+            navigate('/error', {
                 state: { viesti: 'Listaus ei onnistunut' }
             })
         }

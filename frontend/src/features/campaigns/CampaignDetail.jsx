@@ -23,12 +23,12 @@ function CampaignDetail() {
             if (response.status === 200) {
                 setCampaigns(response.data);
             } else {
-                navigate('/virhe', {
+                navigate('/error', {
                     state: { viesti: 'Listaus ei onnistunut' }
                 })
             }
         } catch (error) {
-            navigate('/virhe', {
+            navigate('/error', {
                 state: { viesti: 'Listaus ei onnistunut' }
             })
         }
@@ -44,12 +44,12 @@ function CampaignDetail() {
             if (response.status === 200) {
                 setCampaign(response.data);
             } else {
-                navigate('/virhe', {
+                navigate('/error', {
                     state: { viesti: 'Listaus ei onnistunut' }
                 })
             }
         } catch (error) {
-            navigate('/virhe', {
+            navigate('/error', {
                 state: { viesti: 'Listaus ei onnistunut' }
             })
         }
@@ -62,12 +62,12 @@ function CampaignDetail() {
             if (response.status === 200) {
                 setSessions(response.data);
             } else {
-                navigate('/virhe', {
+                navigate('/error', {
                     state: { viesti: 'Listaus ei onnistunut' }
                 })
             }
         } catch (error) {
-            navigate('/virhe', {
+            navigate('/error', {
                 state: { viesti: 'Listaus ei onnistunut' }
             })
         }
@@ -80,12 +80,12 @@ function CampaignDetail() {
             if (response.status === 200) {
                 setEvents(response.data);
             } else {
-                navigate('/virhe', {
+                navigate('/error', {
                     state: { viesti: 'Listaus ei onnistunut' }
                 })
             }
         } catch (error) {
-            navigate('/virhe', {
+            navigate('/error', {
                 state: { viesti: 'Listaus ei onnistunut' }
             })
         }
